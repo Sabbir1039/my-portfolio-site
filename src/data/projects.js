@@ -31,7 +31,7 @@ const projects = [
         Implements a custom ThemeContext for light/dark mode and showcases professional projects and skills.`,
       image: "/projects/portfolio.png",
       stack: ["JavaScript", "React", "Tailwind CSS"],
-      github: "https://github.com/Sabbir1039/portfolio",
+      github: "https://github.com/Sabbir1039/my-portfolio-site",
       link: null
     },
     {
@@ -77,9 +77,9 @@ const projects = [
       description:
         `A command-line automation tool that watches directories for new or updated CSV files.
         Automatically preprocesses data using Pandas and Argparse for configurable workflows.`,
-      image: "/projects/price-tracker.png",
+      image: "/projects/datamonitor-app.png",
       stack: ["Python", "Pandas", "Watchdog", "Argparse"],
-      github: "https://github.com/yourusername/data-pipeline",
+      github: "https://github.com/Sabbir1039/Datamonitor-cli-app",
       link: null
     },
     {
@@ -89,7 +89,7 @@ const projects = [
       description:
         `A Python-based scraper for extracting public proxy data.
         Exports results to CSV format for easy data analysis and integration with other systems.`,
-      image: "/projects/scraper-bot.png",
+      image: "/projects/proxies-scraper-bot.png",
       stack: ["Python", "Scrapy", "Pandas"],
       github: "https://github.com/Sabbir1039/Scrape-Proxies/tree/main/scrape_proxies",
       link: null

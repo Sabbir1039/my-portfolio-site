@@ -1,5 +1,6 @@
 import { useTheme } from "../../contexts/ThemeContext";
 import { FiGithub } from "react-icons/fi";
+import { FiTag } from "react-icons/fi";
 import projects from "../../data/projects";
 
 const Projects = () => {
@@ -39,9 +40,15 @@ const Projects = () => {
             {/* Content */}
             <div className="p-6">
               {/* Category Badge */}
-              <span className="font-sans inline-block px-3 py-1 rounded-full bg-indigo-100 text-indigo-400 dark:bg-indigo-900 dark:text-indigo-300 mb-3"
-                    style={{ fontSize: "11px" }}
+              <span
+                className="
+                  font-sans inline-flex items-center gap-2 mb-2 px-1.5 py-1.5 rounded-md
+                  bg-gradient-to-r from-indigo-100 to-indigo-200 text-indigo-600 
+                  dark:from-indigo-900 dark:to-indigo-800 dark:text-indigo-300 
+                  text-xs font-medium shadow-sm hover:shadow-md transition-all duration-200
+                "
               >
+                <FiTag className="text-indigo-500 dark:text-indigo-400" size={14} />
                 {project.category}
               </span>
 
@@ -65,9 +72,18 @@ const Projects = () => {
                 href={project.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 transition"
+                className="
+                  inline-flex items-center gap-2 px-5 py-2.5 rounded-lg
+                  bg-gradient-to-r from-indigo-600 to-indigo-500
+                  text-white font-medium shadow-md
+                  hover:from-indigo-700 hover:to-indigo-600
+                  active:scale-95 transition-all duration-200
+                "
               >
-                <FiGithub className="text-md" /> View Details
+                <FiGithub
+                  className="text-lg transition-transform duration-200 group-hover:rotate-12"
+                />
+                View Details
               </a>
             </div>
           </div>
