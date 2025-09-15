@@ -18,7 +18,7 @@ const Hero = () => {
             {/* Image */}
             <div className="flex-1 flex justify-center md:order-last mb-1 md:mb-0">
                 <img
-                    src="/portfolio.png"
+                    src="/src/assets/images/myphoto.jpg"
                     alt="owner"
                     className={`w-64 md:w-80 rounded-full shadow-lg border-4 ${
                     isLightTheme ? "border-gray-200" : "border-gray-700"
@@ -33,19 +33,21 @@ const Hero = () => {
                     MD SABBIR HOSSAIN
                 </h1>
                 <h4 className="font-heading text-xl md:text-2xl font-semibold mt-2 text-indigo-600 dark:text-indigo-400">
-                    Python Developer
+                    Full-Stack Developer & Python Automation Enthusiast
                 </h4>
 
-                <p className="font-sans mt-6 leading-relaxed max-w-xl">
-                    Welcome to my portfolio! I am a dedicated full-stack web developer skilled in Python,
-                    JavaScript, Django, and React. I excel in solving intricate problems and creating
-                    sophisticated solutions that materialize concepts into captivating web experiences.
+                <p className="font-sans mt-6 leading-relaxed max-w-xl text-justify mx-auto">
+                    Welcome to my portfolio! I'm a versatile software developer with expertise in full-stack web development,
+                    frontend engineering, and Python-based automation. I build responsive and dynamic web applications using React,
+                    Tailwind, Django, ASP.NET Core, and FastAPI. My work includes creating personal projects,
+                    data-driven automation tools, web scrapers, and machine learning applications.
+                    Passionate about writing clean, efficient code and delivering impactful solutions that combine innovation with practicality.
                 </p>
 
                 {/* Buttons & Social Links */}
                 <div className="mt-6 flex flex-col md:flex-row gap-4 items-center md:items-start">
                     <a
-                    href="/Sabbir_Hossain.pdf"
+                    href="/CV-of-Md-Sabbir-Hossain.pdf"
                     download="Sabbir Hossain"
                     className="font-sans px-6 py-3 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition"
                     >

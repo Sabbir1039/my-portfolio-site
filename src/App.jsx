@@ -1,12 +1,14 @@
-import { useState } from 'react'
 import './App.css'
-import { useTheme } from './contexts/ThemeContext'
 import Navbartop from './components/navbar/Navbartop'
 import Hero from './components/hero/Hero'
 import Projects from './components/projects/Projects'
+import Skills from './components/skills/Skills'
+import Contact from './components/contact/Contact'
+import 'react-toastify/dist/ReactToastify.css'
+import Footer from './components/footer/Footer'
+import { ToastContainer } from 'react-toastify'
 
 function App() {
-  const { isLightTheme, theme, toggleTheme } = useTheme()
 
   return (
     <>
@@ -16,6 +18,12 @@ function App() {
         <hr />
         <Projects />
         <hr />
+        <Skills />
+        <hr />
+        <Contact />
+        <hr />
+        <Footer />
+        <ToastContainer />
       </div>
     </>
   )
