@@ -18,7 +18,7 @@ const Hero = () => {
             {/* Image */}
             <div className="flex-1 flex justify-center md:order-last mb-1 md:mb-0">
                 <img
-                    src="/src/assets/images/myphoto.jpg"
+                    src="/public/projects/myphoto.jpg"
                     alt="owner"
                     className={`w-64 md:w-80 rounded-full shadow-lg border-4 ${
                     isLightTheme ? "border-gray-200" : "border-gray-700"
@@ -47,8 +47,8 @@ const Hero = () => {
                 {/* Buttons & Social Links */}
                 <div className="mt-6 flex flex-col md:flex-row gap-4 items-center md:items-start">
                     <a
-                    href="/CV-of-Md-Sabbir-Hossain.pdf"
-                    download="Sabbir Hossain"
+                    href="/CV-of-Md.-Sabbir-Hossain.pdf"
+                    download="CV-of-Md.-Sabbir-Hossain.pdf"
                     className="font-sans px-6 py-3 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition"
                     >
                     Download Resume
