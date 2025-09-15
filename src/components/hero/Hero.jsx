@@ -18,9 +18,9 @@ const Hero = () => {
             {/* Image */}
             <div className="flex-1 flex justify-center md:order-last mb-1 md:mb-0">
                 <img
-                    src="/public/projects/myphoto.jpg"
+                    src="/myphoto.jpg"
                     alt="owner"
-                    className={`w-64 md:w-80 rounded-full shadow-lg border-4 ${
+                    className={`w-48 h-54 md:w-80 rounded-full shadow-lg border-4 ${
                     isLightTheme ? "border-gray-200" : "border-gray-700"
                     }`}
                 />
@@ -28,15 +28,15 @@ const Hero = () => {
 
             {/* Text content */}
             <div className="flex-1 text-center md:text-left">
-                <h3 className="font-heading text-lg text-gray-500 dark:text-gray-400">Hello, I&apos;m</h3>
-                <h1 className="font-heading text-4xl md:text-5xl font-extrabold leading-tight">
+                <h3 className="font-heading text-sm md:text-lg text-gray-500 dark:text-gray-400">Hello, I&apos;m</h3>
+                <h1 className="font-heading text-2xl md:text-5xl font-extrabold leading-tight">
                     MD SABBIR HOSSAIN
                 </h1>
                 <h4 className="font-heading text-xl md:text-2xl font-semibold mt-2 text-indigo-600 dark:text-indigo-400">
                     Full-Stack Developer & Python Automation Enthusiast
                 </h4>
 
-                <p className="font-sans mt-6 leading-relaxed max-w-xl text-justify mx-auto">
+                <p className="font-sans text-sm md:text-lg mt-6 leading-relaxed max-w-xl text-justify mx-auto">
                     Welcome to my portfolio! I'm a versatile software developer with expertise in full-stack web development,
                     frontend engineering, and Python-based automation. I build responsive and dynamic web applications using React,
                     Tailwind, Django, ASP.NET Core, and FastAPI. My work includes creating personal projects,
@@ -49,12 +49,12 @@ const Hero = () => {
                     <a
                     href="/CV-of-Md.-Sabbir-Hossain.pdf"
                     download="CV-of-Md.-Sabbir-Hossain.pdf"
-                    className="font-sans px-6 py-3 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition"
+                    className="font-sans text-sm px-6 py-3 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition"
                     >
                     Download Resume
                     </a>
 
-                    <div className="flex gap-6 items-center self-center">
+                    <div className="flex gap-6 items-center self-center py-3 md:py-0">
                         <a href="https://www.linkedin.com/in/sabbir-hossain39/" className="text-4xl hover:text-blue-500 transition">
                             <TiSocialLinkedin />
                         </a>
