@@ -44,16 +44,18 @@ const Contact = () => {
 
             <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:space-x-8 space-y-6 md:space-y-0 justify-evenly items-center">
                 
-                <div className="md:w-1/3 flex justify-center">
+                <div className="md:w-1/2 flex justify-center">
                     <img
                         src="/email.svg"
                         alt="email-icon"
-                        className="font-heading w-48 h-48 md:w-64 md:h-64 object-contain rounded-full hover:shadow-lg transition-shadow"
+                        className="font-heading w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 object-contain rounded-full hover:shadow-lg transition-shadow"
                     />
                 </div>
 
-                <div className="md:w-2/3 w-full font-sans">
-                    <form onSubmit={handleSubmit} className="flex flex-col space-y-4 max-w-md mx-auto">
+                <div className="md:w-1/2 w-full font-sans">
+                    <form onSubmit={handleSubmit} 
+                          className={`flex flex-col space-y-4 max-w-md mx-auto ${isLightTheme ? "bg-white text-gray-900" : "bg-gray-800 text-gray-100"}`}
+                    >
                         <input
                             type="text"
                             placeholder="Your name"

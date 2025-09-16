@@ -31,7 +31,7 @@ const Skills = () => {
 
   // Theme-based classes for category titles
   const categoryTitleClasses = useMemo(() =>
-    `text-lg font-semibold mb-3 ${
+    `text-lg text-center font-semibold mb-3 ${
       isLightTheme ? "text-gray-800" : "text-gray-200"
     }`,
     [isLightTheme]
