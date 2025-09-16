@@ -32,13 +32,15 @@ const Contact = () => {
     return (
         <section 
             id="contact"
-            className={`min-h-screen py-20 transition-colors duration-300 ${
+            className={`min-h-screen py-20 px-6 md:px-0 transition-colors duration-300 ${
                 isLightTheme ? "bg-white text-gray-900" : "bg-gray-800 text-gray-100"
             }`}
         >
-            <div className={`rounded-lg p-4 mb-8`}>
-                <h1 className="text-4xl md:text-5xl font-serif text-center">Get in touch</h1>
-            </div>
+            <h1
+                className="text-center uppercase text-2xl md:text-3xl font-heading tracking-wide mb-12 relative flex items-center justify-center"
+            >
+                GET IN TOUCH
+            </h1>
 
             <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:space-x-8 space-y-6 md:space-y-0 justify-evenly items-center">
                 
