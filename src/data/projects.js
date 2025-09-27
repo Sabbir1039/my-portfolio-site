@@ -94,6 +94,18 @@ const projects = [
       github: "https://github.com/Sabbir1039/Scrape-Proxies/tree/main/scrape_proxies",
       link: null
     },
+    {
+      id: 9,
+      title: "Job Scraper API",
+      category: "Web Scraping & Backend Development",
+      description:
+        `A FastAPI-based REST API that uses Playwright to scrape job listings from public sources like
+        RemoteOK and serves them through clean, easy-to-use endpoints.`,
+      image: "/projects/job-scraper.png",
+      stack: ["Python", "FastAPI", "Playwright"],
+      github: "https://github.com/Sabbir1039/Job-Scraper-API",
+      link: null
+    },
   ];
 
   export default projects;

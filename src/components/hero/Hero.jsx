@@ -1,4 +1,5 @@
-import { TiSocialLinkedin, TiSocialTwitter } from "react-icons/ti";
+import { TiSocialLinkedin } from "react-icons/ti";
+import { SiLeetcode } from "react-icons/si";
 import { FiGithub } from "react-icons/fi";
 import { useTheme } from "../../contexts/ThemeContext";
 
@@ -58,8 +59,8 @@ const Hero = () => {
                         <a href="https://www.linkedin.com/in/sabbir-hossain39/" className="text-4xl hover:text-blue-500 transition">
                             <TiSocialLinkedin />
                         </a>
-                        <a href="https://twitter.com/Sabbir_Ho66ain" className="text-4xl hover:text-blue-500 transition">
-                            <TiSocialTwitter />
+                        <a href="https://leetcode.com/u/Sabbir1039/" className="text-4xl hover:text-blue-500 transition">
+                            <SiLeetcode />
                         </a>
                         <a href="https://github.com/Sabbir1039/" className="text-3xl hover:text-blue-500 transition">
                             <FiGithub />
