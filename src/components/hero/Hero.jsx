@@ -92,18 +92,18 @@ const Hero = () => {
                         <div className="relative">
                             {/* Decorative ring */}
                             <div className={cn(
-                                'absolute inset-0 rounded-full blur-xl opacity-30',
+                                'absolute inset-0 rounded-[42%] blur-xl opacity-30',
                                 isLightTheme ? 'bg-indigo-400' : 'bg-indigo-600'
                             )}></div>
                             <img
                                 src="/myphoto.jpg"
                                 alt={PERSONAL_INFO.NAME}
                                 className={cn(
-                                    'relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full object-cover',
+                                    'relative w-64 h-80 md:w-80 md:h-[26rem] lg:w-96 lg:h-[30rem] rounded-[42%] object-contain',
                                     'ring-8 ring-offset-4 transition-all duration-300 hover:scale-[1.02]',
                                     isLightTheme
-                                        ? 'ring-indigo-100 ring-offset-white'
-                                        : 'ring-indigo-900/30 ring-offset-gray-800'
+                                        ? 'ring-indigo-100 ring-offset-white bg-gray-50'
+                                        : 'ring-indigo-900/30 ring-offset-gray-800 bg-gray-900'
                                 )}
                             />
                         </div>
