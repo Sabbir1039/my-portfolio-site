@@ -1,56 +1,72 @@
-
 import {
-  SiReact, SiTailwindcss, SiHtml5, SiCss3,
-  SiDjango, SiFastapi,
-  SiPython, SiJavascript,
-  SiScrapy, SiSelenium, SiPandas,
-  SiMongodb, SiGit, SiDocker
-} from "react-icons/si";
+  SiReact,
+  SiBootstrap,
+  SiHtml5,
+  SiCss3,
+  SiDjango,
+  SiFastapi,
+  SiPython,
+  SiJavascript,
+  SiScrapy,
+  SiSelenium,
+  SiPandas,
+  SiMongodb,
+  SiGit,
+  SiDocker,
+  SiLinux,
+  SiGnubash,
+} from 'react-icons/si';
+import { IoCodeSlash } from 'react-icons/io5';
+import { FaCode, FaDotCircle, FaDatabase } from 'react-icons/fa';
 
-// Using generic icons for technologies that might not have specific ones
-import { IoCodeSlash } from "react-icons/io5";
+/**
+ * Skill categories
+ */
+export const SKILL_CATEGORIES = {
+  FRONTEND: 'Frontend',
+  BACKEND: 'Backend',
+  LANGUAGES: 'Languages',
+  LIBRARIES: 'Libraries',
+  DATABASES: 'Databases',
+  TOOLS: 'Tools',
+};
 
-// C# and VS Code icons - using a generic code icon
-import { FaCode } from "react-icons/fa";
-
-// Blazor icon - using a generic code icon since SiMicrosoft might not be appropriate
-import { FaDotCircle } from "react-icons/fa";
-
-// SQL/SQL Server icon - using a database icon
-import { FaDatabase } from "react-icons/fa";
-
+/**
+ * Skills data organized by category
+ */
 const skillsData = {
-  Frontend: [
-    { name: "React", icon: SiReact },
-    { name: "TailwindCSS", icon: SiTailwindcss },
-    { name: "HTML", icon: SiHtml5 },
-    { name: "CSS", icon: SiCss3 }
+  [SKILL_CATEGORIES.FRONTEND]: [
+    { name: 'React', icon: SiReact },
+    { name: 'Bootstrap', icon: SiBootstrap },
+    { name: 'HTML', icon: SiHtml5 },
+    { name: 'CSS', icon: SiCss3 },
   ],
-  Backend: [
-    { name: "Django", icon: SiDjango },
-    { name: "FastAPI", icon: SiFastapi },
-    { name: "Blazor", icon: FaDotCircle }
+  [SKILL_CATEGORIES.BACKEND]: [
+    { name: 'Django', icon: SiDjango },
+    { name: 'FastAPI', icon: SiFastapi },
+    { name: 'Blazor', icon: FaDotCircle },
   ],
-  Languages: [
-    { name: "Python", icon: SiPython },
-    { name: "JavaScript", icon: SiJavascript },
-    { name: "C#", icon: FaCode },
-    { name: "SQL", icon: FaDatabase }
+  [SKILL_CATEGORIES.LANGUAGES]: [
+    { name: 'Python', icon: SiPython },
+    { name: 'JavaScript', icon: SiJavascript },
+    { name: 'Bash', icon: SiGnubash },
+    { name: 'SQL', icon: FaDatabase },
   ],
-  Libraries: [
-    { name: "Scrapy", icon: SiScrapy },
-    { name: "Selenium", icon: SiSelenium },
-    { name: "BeautifulSoup", icon: IoCodeSlash },
-    { name: "Pandas", icon: SiPandas }
+  [SKILL_CATEGORIES.LIBRARIES]: [
+    { name: 'Scrapy', icon: SiScrapy },
+    { name: 'Selenium', icon: SiSelenium },
+    { name: 'BeautifulSoup', icon: IoCodeSlash },
+    { name: 'Pandas', icon: SiPandas },
   ],
-  Databases: [
-    { name: "SQL Server", icon: FaDatabase },
-    { name: "MongoDB", icon: SiMongodb }
+  [SKILL_CATEGORIES.DATABASES]: [
+    { name: 'SQL Server', icon: FaDatabase },
+    { name: 'MongoDB', icon: SiMongodb },
   ],
-  Tools: [
-    { name: "Git", icon: SiGit },
-    { name: "VS Code", icon: FaCode },
-    { name: "Docker", icon: SiDocker }
+  [SKILL_CATEGORIES.TOOLS]: [
+    { name: 'Git', icon: SiGit },
+    { name: 'VS Code', icon: FaCode },
+    { name: 'Docker', icon: SiDocker },
+    { name: 'Linux', icon: SiLinux },
   ],
 };
 

@@ -1,95 +1,116 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { access_key } from '../../data/api';
 import { useTheme } from '../../contexts/ThemeContext';
+import { Section, Input, Textarea, Button } from '../ui';
+import { getThemeClasses } from '../../utils/classNames';
+import { getApiConfig } from '../../data/api';
+import { API_ENDPOINTS } from '../../constants';
 
 const Contact = () => {
     const { isLightTheme } = useTheme();
+    const themeClasses = getThemeClasses(isLightTheme);
 
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [message, setMessage] = useState('');
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        message: '',
+    });
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsSubmitting(true);
 
-        const response = await fetch("https://api.web3forms.com/submit", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", Accept: "application/json" },
-            body: JSON.stringify({ name, email, message, access_key }),
-        }).then(res => res.json());
+        try {
+            const { accessKey } = getApiConfig();
+            const response = await fetch(API_ENDPOINTS.WEB3FORMS, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Accept: 'application/json',
+                },
+                body: JSON.stringify({
+                    ...formData,
+                    access_key: accessKey,
+                }),
+            });
 
-        if (response.success) {
-            setName('');
-            setEmail('');
-            setMessage('');
-            toast.success("Email sent successfully!");
-        } else {
-            toast.error("Error occurred while sending email! Try again!");
+            const result = await response.json();
+
+            if (result.success) {
+                setFormData({ name: '', email: '', message: '' });
+                toast.success('Email sent successfully!');
+            } else {
+                throw new Error('Failed to send email');
+            }
+        } catch (error) {
+            console.error('Contact form error:', error);
+            toast.error('Error occurred while sending email! Try again!');
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
     return (
-        <section 
+        <Section
             id="contact"
-            className={`min-h-screen py-20 px-6 md:px-0 transition-colors duration-300 ${
-                isLightTheme ? "bg-white text-gray-900" : "bg-gray-800 text-gray-100"
-            }`}
+            title="GET IN TOUCH"
+            fullHeight
+            className={`${themeClasses.background} ${themeClasses.text}`}
         >
-            <h1
-                className="text-center uppercase text-2xl md:text-3xl font-heading tracking-wide mb-12 relative flex items-center justify-center"
-            >
-                GET IN TOUCH
-            </h1>
-
-            <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:space-x-8 space-y-6 md:space-y-0 justify-evenly items-center">
-                
+            <div className="flex flex-col md:flex-row md:space-x-8 space-y-6 md:space-y-0 justify-evenly items-center">
+                {/* Illustration */}
                 <div className="md:w-1/2 flex justify-center">
                     <img
                         src="/email.svg"
-                        alt="email-icon"
-                        className="font-heading w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 object-contain rounded-full hover:shadow-lg transition-shadow"
+                        alt="Contact illustration"
+                        className="w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 object-contain rounded-full hover:shadow-lg transition-all duration-300 hover:scale-105"
                     />
                 </div>
 
-                <div className="md:w-1/2 w-full font-sans">
-                    <form onSubmit={handleSubmit} 
-                          className={`flex flex-col space-y-4 max-w-md mx-auto ${isLightTheme ? "bg-white text-gray-900" : "bg-gray-800 text-gray-100"}`}
+                {/* Contact Form */}
+                <div className="md:w-1/2 w-full">
+                    <form
+                        onSubmit={handleSubmit}
+                        className="flex flex-col space-y-4 max-w-md mx-auto"
                     >
-                        <input
+                        <Input
                             type="text"
+                            name="name"
                             placeholder="Your name"
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            value={formData.name}
+                            onChange={handleChange}
                             required
-                            className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-900"
                         />
-                        <input
+                        <Input
                             type="email"
+                            name="email"
                             placeholder="Email address"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={formData.email}
+                            onChange={handleChange}
                             required
-                            className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-900"
                         />
-                        <textarea
+                        <Textarea
+                            name="message"
                             placeholder="Message"
-                            value={message}
-                            onChange={(e) => setMessage(e.target.value)}
+                            value={formData.message}
+                            onChange={handleChange}
                             required
-                            className="w-full px-4 py-2 rounded border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400 resize-none h-32 text-gray-900"
+                            rows={5}
                         />
-                        <button
-                            type="submit"
-                            className="px-6 py-2 rounded bg-indigo-600 text-white hover:bg-blue-700 transition"
-                        >
-                            Send
-                        </button>
+                        <Button type="submit" disabled={isSubmitting} className="w-full">
+                            {isSubmitting ? 'Sending...' : 'Send Message'}
+                        </Button>
                     </form>
                 </div>
-
             </div>
-        </section>
+        </Section>
     );
 };
 

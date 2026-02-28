@@ -1,76 +1,117 @@
-import { TiSocialLinkedin } from "react-icons/ti";
-import { SiLeetcode } from "react-icons/si";
-import { FiGithub } from "react-icons/fi";
-import { useTheme } from "../../contexts/ThemeContext";
+import { TiSocialLinkedin } from 'react-icons/ti';
+import { SiLeetcode } from 'react-icons/si';
+import { FiGithub } from 'react-icons/fi';
+import { useTheme } from '../../contexts/ThemeContext';
+import { Button } from '../ui';
+import { PERSONAL_INFO, SOCIAL_LINKS, CONTACT_INFO } from '../../constants';
+import { getThemeClasses, cn } from '../../utils/classNames';
 
 const Hero = () => {
-  const { isLightTheme } = useTheme();
-  const theme = isLightTheme ? "light" : "dark";
+    const { isLightTheme } = useTheme();
+    const themeClasses = getThemeClasses(isLightTheme);
 
-  return (
-    <section
-        id="hero"
-        className={`min-h-screen flex items-center pt-20 sm:pt-16 md:pt-0 transition-colors duration-300 ${
-            isLightTheme ? "bg-white text-gray-900" : "bg-gray-800 text-gray-100"
-        }`}
+    const socialLinks = [
+        { href: SOCIAL_LINKS.LINKEDIN, icon: TiSocialLinkedin, label: 'LinkedIn' },
+        { href: SOCIAL_LINKS.LEETCODE, icon: SiLeetcode, label: 'LeetCode' },
+        { href: SOCIAL_LINKS.GITHUB, icon: FiGithub, label: 'GitHub' },
+    ];
+
+    return (
+        <section
+            id="hero"
+            className={`min-h-screen flex items-center pt-20 sm:pt-16 md:pt-0 transition-colors duration-300 relative overflow-hidden ${themeClasses.background} ${themeClasses.text}`}
         >
-        {/* Full width container with padding */}
-        <div className="w-full px-6 md:px-12 lg:px-16 flex flex-col md:flex-row items-center justify-between max-w-[1280px] mx-auto">
-            {/* Image */}
-            <div className="flex-1 flex justify-center md:order-last mb-1 md:mb-0">
-                <img
-                    src="/myphoto.jpg"
-                    alt="owner"
-                    className={`w-48 h-54 md:w-80 rounded-full shadow-lg border-4 ${
-                    isLightTheme ? "border-gray-200" : "border-gray-700"
-                    }`}
-                />
+            {/* Decorative background elements */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+                <div className={`absolute top-20 right-10 w-72 h-72 rounded-full blur-3xl opacity-20 ${isLightTheme ? 'bg-indigo-300' : 'bg-indigo-600'}`}></div>
+                <div className={`absolute bottom-20 left-10 w-96 h-96 rounded-full blur-3xl opacity-20 ${isLightTheme ? 'bg-blue-300' : 'bg-blue-600'}`}></div>
             </div>
 
-            {/* Text content */}
-            <div className="flex-1 text-center md:text-left">
-                <h3 className="font-heading text-sm md:text-lg text-gray-500 dark:text-gray-400">Hello, I&apos;m</h3>
-                <h1 className="font-heading text-2xl md:text-5xl font-extrabold leading-tight">
-                    MD SABBIR HOSSAIN
-                </h1>
-                <h4 className="font-heading text-xl md:text-2xl font-semibold mt-2 text-indigo-600 dark:text-indigo-400">
-                    Full-Stack Developer & Python Automation Enthusiast
-                </h4>
+            <div className="w-full px-6 md:px-12 lg:px-20 relative z-10 max-w-7xl mx-auto">
+                <div className="grid md:grid-cols-2 gap-12 items-center">
+                    {/* Content - Left Side */}
+                    <div className="space-y-6 order-2 md:order-1">
+                        <div className="space-y-2">
+                            <p className={cn('text-sm md:text-base font-medium uppercase tracking-wider', isLightTheme ? 'text-indigo-600' : 'text-indigo-400')}>
+                                {PERSONAL_INFO.GREETING}
+                            </p>
+                            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight">
+                                <span className={cn('bg-gradient-to-r bg-clip-text text-transparent', isLightTheme ? 'from-indigo-600 to-blue-600' : 'from-indigo-400 to-blue-400')}>
+                                    {PERSONAL_INFO.NAME.split(' ')[0]}
+                                </span>
+                                <br />
+                                <span className={isLightTheme ? 'text-gray-900' : 'text-white'}>
+                                    {PERSONAL_INFO.NAME.split(' ').slice(1).join(' ')}
+                                </span>
+                            </h1>
+                            <h2 className={cn('text-xl md:text-2xl font-semibold pt-2', isLightTheme ? 'text-gray-900' : 'text-gray-200')}>
+                                {PERSONAL_INFO.TITLE}
+                            </h2>
+                        </div>
 
-                <p className="font-sans text-sm md:text-lg mt-6 leading-relaxed max-w-xl text-justify mx-auto">
-                    Welcome to my portfolio! I'm a versatile software developer with expertise in full-stack web development,
-                    frontend engineering, and Python-based automation. I build responsive and dynamic web applications using React,
-                    Tailwind, Django, ASP.NET Core, and FastAPI. My work includes creating personal projects,
-                    data-driven automation tools, web scrapers, and machine learning applications.
-                    Passionate about writing clean, efficient code and delivering impactful solutions that combine innovation with practicality.
-                </p>
+                        <p className={cn('text-base md:text-lg leading-relaxed max-w-2xl', isLightTheme ? 'text-gray-800' : 'text-gray-300')}>
+                            {PERSONAL_INFO.BIO}
+                        </p>
 
-                {/* Buttons & Social Links */}
-                <div className="mt-6 flex flex-col md:flex-row gap-4 items-center md:items-start">
-                    <a
-                    href="/CV-of-Md.-Sabbir-Hossain.pdf"
-                    download="CV-of-Md.-Sabbir-Hossain.pdf"
-                    className="font-sans text-sm px-6 py-3 rounded-full bg-indigo-600 text-white hover:bg-indigo-700 transition"
-                    >
-                    Download Resume
-                    </a>
+                        {/* Actions */}
+                        <div className="flex flex-wrap gap-4 items-center pt-4">
+                            <Button
+                                as="a"
+                                href={CONTACT_INFO.RESUME_PATH}
+                                download="CV-of-Md.-Sabbir-Hossain.pdf"
+                                size="lg"
+                                className="font-sans shadow-lg"
+                            >
+                                Download Resume
+                            </Button>
 
-                    <div className="flex gap-6 items-center self-center py-3 md:py-0">
-                        <a href="https://www.linkedin.com/in/sabbir-hossain39/" className="text-4xl hover:text-blue-500 transition">
-                            <TiSocialLinkedin />
-                        </a>
-                        <a href="https://leetcode.com/u/Sabbir1039/" className="text-4xl hover:text-blue-500 transition">
-                            <SiLeetcode />
-                        </a>
-                        <a href="https://github.com/Sabbir1039/" className="text-3xl hover:text-blue-500 transition">
-                            <FiGithub />
-                        </a>
+                            <div className="flex gap-4">
+                                {socialLinks.map(({ href, icon: Icon, label }) => (
+                                    <a
+                                        key={label}
+                                        href={href}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label={label}
+                                        className={cn(
+                                            'p-3 rounded-full transition-all duration-300 hover:scale-110',
+                                            isLightTheme
+                                                ? 'bg-gray-100 hover:bg-indigo-100 text-gray-800 hover:text-indigo-600'
+                                                : 'bg-gray-800 hover:bg-indigo-900 text-gray-300 hover:text-indigo-400'
+                                        )}
+                                    >
+                                        <Icon className="text-2xl" />
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Profile Image - Right Side */}
+                    <div className="flex justify-center md:justify-end order-1 md:order-2">
+                        <div className="relative">
+                            {/* Decorative ring */}
+                            <div className={cn(
+                                'absolute inset-0 rounded-full blur-xl opacity-30',
+                                isLightTheme ? 'bg-indigo-400' : 'bg-indigo-600'
+                            )}></div>
+                            <img
+                                src="/myphoto.jpg"
+                                alt={PERSONAL_INFO.NAME}
+                                className={cn(
+                                    'relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full object-cover',
+                                    'ring-8 ring-offset-4 transition-all duration-300 hover:scale-[1.02]',
+                                    isLightTheme
+                                        ? 'ring-indigo-100 ring-offset-white'
+                                        : 'ring-indigo-900/30 ring-offset-gray-800'
+                                )}
+                            />
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-  );
+        </section>
+    );
 };
 
 export default Hero;
