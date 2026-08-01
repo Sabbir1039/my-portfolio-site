@@ -79,8 +79,9 @@ shown a direct email address instead. Everything else on the site works normally
 
 ## Resume
 
-`resume/` is **gitignored and not part of the site**. It holds the named version of the CV —
-real employer, vendors and clients — while the published site is deliberately anonymous.
+`resume/` is **gitignored and not part of the site**. The site names employers but keeps
+healthcare vendors, clearinghouses and client systems generic; the CV names all of them,
+so it stays out of the repo.
 
 ```bash
 npm run resume   # resume/resume.html -> resume/CV-of-Md.-Sabbir-Hossain.pdf (headless Chrome)

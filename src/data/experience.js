@@ -1,9 +1,10 @@
 /**
  * Professional experience — reverse chronological, render order is array order.
  *
- * Employer names are generalised for the current role only, since that work is under NDA.
- * Earlier roles are named. The fully named version lives in resume/resume.html,
- * which is not published to the site.
+ * Employers are named. Healthcare vendors, clients and the specific systems
+ * integrated with are NOT — that work is under NDA, so highlights describe the
+ * engineering generically ("a federal healthcare API", "the vendor API").
+ * resume/resume.html is the fully named version and is gitignored, not published.
  *
  * TODO(sabbir): confirm the contract-work date range on entry 3 before publishing.
  */
@@ -11,7 +12,7 @@ const experience = [
   {
     id: 1,
     role: 'Backend Engineer (Python)',
-    company: 'US-based Healthcare Technology Company',
+    company: 'Ekagra Health Inc.',
     companyNote: 'HIPAA-regulated EHR & clinical workflow platform',
     location: 'Remote — Bangladesh',
     period: 'Oct 2025 — Present',

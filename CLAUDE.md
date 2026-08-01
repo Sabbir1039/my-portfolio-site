@@ -57,12 +57,16 @@ Edit these instead of touching components:
 - [src/data/skills.js](src/data/skills.js) — object of category → `{ name, icon }`, icons are react-icons components.
 - [src/components/navbar/NavLinks.js](src/components/navbar/NavLinks.js) — nav items; `id` must match a `<section id>`.
 
-> **Public content is deliberately anonymous.** The site never names the employer, healthcare
-> vendors, or clients — that work is under NDA.
+> **Employers are named; vendors and clients are not.** The site names where he works
+> (`Ekagra Health Inc.`, `Fintech Hub Ltd.`), but never the healthcare vendors, clearinghouses,
+> federal programmes or client systems — that work is under NDA. Highlights say "a federal
+> healthcare API" and "the vendor API" on purpose. Keep it that way when editing
+> [experience.js](src/data/experience.js) or [projects.js](src/data/projects.js).
 >
-> `resume/` is **gitignored** and holds the *named* CV. It renders to `resume/`, never `public/`,
-> so a local build cannot sweep it into `dist/`. The Hero has no resume-download link by design —
-> do not add one, and do not move the PDF into `public/`. Both would publish the names.
+> `resume/` is **gitignored** and holds the CV, which *does* name those vendors. It renders to
+> `resume/`, never `public/`, so a local build cannot sweep it into `dist/`. The Hero has no
+> resume-download link by design — do not add one, and do not move the PDF into `public/`.
+> Either would publish the vendor names the site deliberately omits.
 
 Projects support `isPrivate: true` with no `github` and no `image`: the card renders a gradient
 media block with a lock icon, a "Private — company work" badge, and omits the actions row.
