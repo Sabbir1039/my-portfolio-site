@@ -1,4 +1,3 @@
-import './App.css';
 import Navbartop from './components/navbar/Navbartop';
 import Hero from './components/hero/Hero';
 import Experience from './components/experience/Experience';
@@ -8,37 +7,30 @@ import Contact from './components/contact/Contact';
 import Footer from './components/footer/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useTheme } from './contexts/ThemeContext';
 
 function App() {
-  const { isLightTheme } = useTheme();
-  const hrClass = isLightTheme ? 'border-gray-300' : 'border-gray-700';
-
   return (
-    <div className="w-full">
+    <div className="w-full bg-surface">
       <Navbartop />
-      <Hero />
-      <hr className={hrClass} />
-      <Experience />
-      <hr className={hrClass} />
-      <Projects />
-      <hr className={hrClass} />
-      <Skills />
-      <hr className={hrClass} />
-      <Contact />
-      <hr className={hrClass} />
+      <main>
+        {/* Sections carry their own top border instead of shared <hr>s, so each
+            one owns its full spacing. */}
+        <Hero />
+        <Experience />
+        <Projects />
+        <Skills />
+        <Contact />
+      </main>
       <Footer />
       <ToastContainer
         position="bottom-right"
-        autoClose={3000}
-        hideProgressBar={false}
+        autoClose={4000}
         newestOnTop
         closeOnClick
-        rtl={false}
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="colored"
+        theme="dark"
       />
     </div>
   );

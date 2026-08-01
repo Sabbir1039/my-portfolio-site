@@ -1,20 +1,15 @@
 import PropTypes from 'prop-types';
-import { useTheme } from '../../contexts/ThemeContext';
-import { cn, getThemeClasses } from '../../utils/classNames';
+import { cn } from '../../utils/classNames';
 
 /**
  * Reusable Card component
  */
 const Card = ({ children, className = '', hover = false }) => {
-    const { isLightTheme } = useTheme();
-    const themeClasses = getThemeClasses(isLightTheme);
-
     return (
         <div
             className={cn(
-                'rounded-2xl shadow-lg overflow-hidden transition-all duration-300',
-                themeClasses.card,
-                hover && 'hover:shadow-2xl hover:scale-[1.02]',
+                'bg-surface-raised border border-line rounded-lg overflow-hidden transition-colors duration-200',
+                hover && 'hover:border-accent/40',
                 className
             )}
         >

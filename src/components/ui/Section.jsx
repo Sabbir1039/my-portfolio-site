@@ -2,10 +2,13 @@ import PropTypes from 'prop-types';
 import { cn } from '../../utils/classNames';
 
 /**
- * Reusable Section component with consistent structure
+ * Section wrapper: max-width, padding, and a left-aligned heading with a mono
+ * eyebrow above it. Colour comes from tokens, so sections no longer need to be
+ * handed theme classes by their parent.
  */
 const Section = ({
     id,
+    eyebrow,
     title,
     children,
     className = '',
@@ -15,16 +18,25 @@ const Section = ({
         <section
             id={id}
             className={cn(
-                'py-20 transition-colors duration-300',
+                'bg-surface text-ink border-t border-line py-24 transition-colors duration-300',
                 fullHeight && 'min-h-screen',
                 className
             )}
         >
-            <div className="max-w-6xl mx-auto px-6">
-                {title && (
-                    <h1 className="text-center uppercase text-2xl md:text-3xl font-heading tracking-wide mb-12">
-                        {title}
-                    </h1>
+            <div className="max-w-5xl mx-auto px-6">
+                {(eyebrow || title) && (
+                    <header className="mb-12">
+                        {eyebrow && (
+                            <p className="font-mono text-xs tracking-[0.18em] uppercase text-accent mb-2">
+                                {eyebrow}
+                            </p>
+                        )}
+                        {title && (
+                            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
+                                {title}
+                            </h2>
+                        )}
+                    </header>
                 )}
                 {children}
             </div>
@@ -34,6 +46,7 @@ const Section = ({
 
 Section.propTypes = {
     id: PropTypes.string.isRequired,
+    eyebrow: PropTypes.string,
     title: PropTypes.string,
     children: PropTypes.node.isRequired,
     className: PropTypes.string,

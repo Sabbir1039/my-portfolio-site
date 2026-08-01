@@ -2,11 +2,16 @@ import { createContext, useState, useContext, useMemo, useCallback, useEffect } 
 
 const STORAGE_KEY = "theme";
 
-// Stored choice wins; otherwise follow the OS. Resolved synchronously so React's
-// first paint is already correct.
+// Stored choice wins; otherwise follow the OS.
 const resolveInitialTheme = () =>
   (localStorage.getItem(STORAGE_KEY) ??
     (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark")) === "light";
+
+// Applied at module load — before ReactDOM renders — so the very first paint uses
+// the right tokens. Doing this only in the effect below would paint dark first and
+// then snap to light, which is the flash this is here to prevent.
+const initialIsLightTheme = resolveInitialTheme();
+document.documentElement.dataset.theme = initialIsLightTheme ? "light" : "dark";
 
 // Not exported — every consumer goes through useTheme().
 const ThemeContext = createContext();
@@ -24,10 +29,14 @@ export const useTheme = () => {
 };
 
 const ThemeContextProvider = ({ children }) => {
-  const [isLightTheme, setIsLightTheme] = useState(resolveInitialTheme);
+  const [isLightTheme, setIsLightTheme] = useState(initialIsLightTheme);
 
+  // Drives the whole palette: index.css keys its token values off this attribute.
+  // Components never branch on the theme themselves — they use semantic classes.
   useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, isLightTheme ? "light" : "dark");
+    const theme = isLightTheme ? "light" : "dark";
+    document.documentElement.dataset.theme = theme;
+    localStorage.setItem(STORAGE_KEY, theme);
   }, [isLightTheme]);
 
   // Memoize the toggle function to prevent unnecessary re-renders

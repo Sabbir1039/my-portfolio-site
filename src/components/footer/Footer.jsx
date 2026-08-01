@@ -1,61 +1,52 @@
-import { MdEmail } from 'react-icons/md';
-import { FaSquarePhone } from 'react-icons/fa6';
-import { GrLinkTop } from 'react-icons/gr';
-import { useTheme } from '../../contexts/ThemeContext';
-import { getThemeClasses, cn } from '../../utils/classNames';
-import { CONTACT_INFO, SECTION_IDS } from '../../constants';
+import { FiGithub, FiArrowUp } from 'react-icons/fi';
+import { TiSocialLinkedin } from 'react-icons/ti';
+import { SiLeetcode } from 'react-icons/si';
+import { CONTACT_INFO, SOCIAL_LINKS, SECTION_IDS, PERSONAL_INFO } from '../../constants';
 
-const Footer = () => {
-    const { isLightTheme } = useTheme();
-    const themeClasses = getThemeClasses(isLightTheme);
+const links = [
+    { href: SOCIAL_LINKS.GITHUB, icon: FiGithub, label: 'GitHub' },
+    { href: SOCIAL_LINKS.LINKEDIN, icon: TiSocialLinkedin, label: 'LinkedIn' },
+    { href: SOCIAL_LINKS.LEETCODE, icon: SiLeetcode, label: 'LeetCode' },
+];
 
-    const contactItems = [
-        { icon: MdEmail, text: CONTACT_INFO.EMAIL, href: `mailto:${CONTACT_INFO.EMAIL}` },
-        { icon: FaSquarePhone, text: CONTACT_INFO.PHONE, href: `tel:${CONTACT_INFO.PHONE}` },
-    ];
+const Footer = () => (
+    <footer className="bg-surface text-ink border-t border-line transition-colors duration-300">
+        <div className="max-w-5xl mx-auto px-6 py-12 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+            <div>
+                <a
+                    href={`mailto:${CONTACT_INFO.EMAIL}`}
+                    className="font-mono text-sm text-ink hover:text-accent transition-colors duration-200"
+                >
+                    {CONTACT_INFO.EMAIL}
+                </a>
+                <p className="font-mono text-xs text-ink-subtle mt-2">
+                    © {new Date().getFullYear()} {PERSONAL_INFO.NAME}
+                </p>
+            </div>
 
-    return (
-        <footer
-            className={`py-20 transition-colors duration-300 flex items-center justify-center ${themeClasses.background} ${themeClasses.text}`}
-        >
-            <div className="max-w-4xl text-center space-y-6 px-6">
-                <h2 className="text-3xl md:text-4xl font-serif font-bold">
-                    THANK YOU FOR VISITING!
-                </h2>
-
+            <div className="flex items-center gap-1">
+                {links.map(({ href, icon: Icon, label }) => (
+                    <a
+                        key={label}
+                        href={href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label={label}
+                        className="p-2.5 rounded text-ink-muted hover:text-accent transition-colors duration-200"
+                    >
+                        <Icon className="text-lg" />
+                    </a>
+                ))}
                 <a
                     href={`#${SECTION_IDS.HERO}`}
-                    className={cn('inline-flex items-center space-x-2 font-medium transition-all duration-300 hover:scale-105', isLightTheme ? 'text-indigo-600 hover:text-indigo-800' : 'text-indigo-400 hover:text-indigo-300')}
+                    aria-label="Back to top"
+                    className="p-2.5 rounded text-ink-muted hover:text-accent transition-colors duration-200"
                 >
-                    <span>BACK TO TOP</span>
-                    <GrLinkTop />
+                    <FiArrowUp className="text-lg" />
                 </a>
-
-                <p className={isLightTheme ? 'text-gray-700' : 'text-gray-400'}>
-                    If needed, you can also connect with me via:
-                </p>
-
-                <div className="space-y-2 text-lg">
-                    {contactItems.map(({ icon: Icon, text, href }) => (
-                        <a
-                            key={text}
-                            href={href}
-                            className={cn('flex items-center justify-center space-x-2 transition-colors duration-300', isLightTheme ? 'text-gray-800 hover:text-indigo-600' : 'text-gray-300 hover:text-indigo-400')}
-                        >
-                            <Icon />
-                            <span>{text}</span>
-                        </a>
-                    ))}
-                </div>
-
-                <div className={cn('pt-4 border-t', isLightTheme ? 'border-gray-300' : 'border-gray-700')}>
-                    <p className={cn('text-sm', isLightTheme ? 'text-gray-600' : 'text-gray-400')}>
-                        © {new Date().getFullYear()} MD Sabbir Hossain. All rights reserved.
-                    </p>
-                </div>
             </div>
-        </footer>
-    );
-};
+        </div>
+    </footer>
+);
 
 export default Footer;

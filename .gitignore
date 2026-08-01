@@ -46,3 +46,6 @@ Thumbs.db
 # The public site is deliberately anonymous, so this must never be committed
 # or deployed. Rendered locally with `npm run resume`; send the PDF directly.
 resume/
+
+# Brainstorming visual companion scratch files
+.superpowers/

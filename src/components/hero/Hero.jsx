@@ -1,123 +1,82 @@
 import { TiSocialLinkedin } from 'react-icons/ti';
 import { SiLeetcode } from 'react-icons/si';
 import { FiGithub } from 'react-icons/fi';
-import { useTheme } from '../../contexts/ThemeContext';
 import { Button } from '../ui';
 import { PERSONAL_INFO, SOCIAL_LINKS, SECTION_IDS } from '../../constants';
-import { getThemeClasses, cn } from '../../utils/classNames';
 
-const Hero = () => {
-    const { isLightTheme } = useTheme();
-    const themeClasses = getThemeClasses(isLightTheme);
+const socialLinks = [
+    { href: SOCIAL_LINKS.GITHUB, icon: FiGithub, label: 'GitHub' },
+    { href: SOCIAL_LINKS.LINKEDIN, icon: TiSocialLinkedin, label: 'LinkedIn' },
+    { href: SOCIAL_LINKS.LEETCODE, icon: SiLeetcode, label: 'LeetCode' },
+];
 
-    const socialLinks = [
-        { href: SOCIAL_LINKS.LINKEDIN, icon: TiSocialLinkedin, label: 'LinkedIn' },
-        { href: SOCIAL_LINKS.LEETCODE, icon: SiLeetcode, label: 'LeetCode' },
-        { href: SOCIAL_LINKS.GITHUB, icon: FiGithub, label: 'GitHub' },
-    ];
+const Hero = () => (
+    // py must clear the fixed h-14 navbar at every breakpoint.
+    <section
+        id={SECTION_IDS.HERO}
+        className="bg-surface text-ink min-h-screen flex items-center py-28 transition-colors duration-300"
+    >
+        <div className="w-full max-w-5xl mx-auto px-6">
+            {/* Photo is order-1 on desktop only. On mobile the text leads, so the
+                first screen is the name and role rather than a portrait. */}
+            <div className="grid md:grid-cols-[1.4fr_1fr] gap-12 md:gap-16 items-center">
+                <div>
+                    <p className="font-mono text-xs tracking-[0.18em] uppercase text-accent mb-4">
+                        {PERSONAL_INFO.GREETING}
+                    </p>
 
-    return (
-        // Vertical padding must clear the fixed h-16 navbar at every breakpoint — with the
-        // previous `md:pt-0` the vertically-centred content slid under the nav once the bio grew.
-        <section
-            id="hero"
-            className={`min-h-screen flex items-center py-24 transition-colors duration-300 relative overflow-hidden ${themeClasses.background} ${themeClasses.text}`}
-        >
-            {/* Decorative background elements */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <div className={`absolute top-20 right-10 w-72 h-72 rounded-full blur-3xl opacity-20 ${isLightTheme ? 'bg-indigo-300' : 'bg-indigo-600'}`}></div>
-                <div className={`absolute bottom-20 left-10 w-96 h-96 rounded-full blur-3xl opacity-20 ${isLightTheme ? 'bg-blue-300' : 'bg-blue-600'}`}></div>
-            </div>
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.05] mb-4">
+                        {PERSONAL_INFO.NAME}
+                    </h1>
 
-            <div className="w-full px-6 md:px-12 lg:px-20 relative z-10 max-w-7xl mx-auto">
-                <div className="grid md:grid-cols-2 gap-12 items-center">
-                    {/* Content - Left Side */}
-                    <div className="space-y-6 order-2 md:order-1">
-                        <div className="space-y-2">
-                            <p className={cn('text-sm md:text-base font-medium uppercase tracking-wider', isLightTheme ? 'text-indigo-600' : 'text-indigo-400')}>
-                                {PERSONAL_INFO.GREETING}
-                            </p>
-                            {/* Split on the LAST space, not the first — "MD" is an
-                                honorific, so a first-space split stranded it alone on
-                                line one. Gives "MD SABBIR" / "HOSSAIN". */}
-                            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight">
-                                <span className={cn('bg-gradient-to-r bg-clip-text text-transparent', isLightTheme ? 'from-indigo-600 to-blue-600' : 'from-indigo-400 to-blue-400')}>
-                                    {PERSONAL_INFO.NAME.split(' ').slice(0, -1).join(' ')}
-                                </span>
-                                <br />
-                                <span className={isLightTheme ? 'text-gray-900' : 'text-white'}>
-                                    {PERSONAL_INFO.NAME.split(' ').slice(-1)[0]}
-                                </span>
-                            </h1>
-                            <h2 className={cn('text-xl md:text-2xl font-semibold pt-2', isLightTheme ? 'text-gray-900' : 'text-gray-200')}>
-                                {PERSONAL_INFO.TITLE}
-                            </h2>
-                        </div>
+                    <p className="font-mono text-sm md:text-base text-ink-muted mb-6">
+                        {PERSONAL_INFO.TITLE}
+                    </p>
 
-                        <p className={cn('text-base md:text-lg leading-relaxed max-w-2xl', isLightTheme ? 'text-gray-800' : 'text-gray-300')}>
-                            {PERSONAL_INFO.BIO}
-                        </p>
+                    <p className="text-base md:text-lg leading-relaxed text-ink-muted max-w-xl mb-4">
+                        {PERSONAL_INFO.BIO}
+                    </p>
 
-                        {/* Actions */}
-                        <div className="flex flex-wrap gap-4 items-center pt-4">
-                            {/* No resume download: the CV names the employer and clients,
-                                and this site is deliberately anonymous. It's sent on request. */}
-                            <Button
-                                as="a"
-                                href={`#${SECTION_IDS.CONTACT}`}
-                                size="lg"
-                                className="font-sans shadow-lg"
-                            >
-                                Get in Touch
-                            </Button>
+                    <p className="font-mono text-xs text-ink-subtle max-w-xl mb-8">
+                        {PERSONAL_INFO.NDA_NOTE}
+                    </p>
 
-                            <div className="flex gap-4">
-                                {socialLinks.map(({ href, icon: Icon, label }) => (
-                                    <a
-                                        key={label}
-                                        href={href}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        aria-label={label}
-                                        className={cn(
-                                            'p-3 rounded-full transition-all duration-300 hover:scale-110',
-                                            isLightTheme
-                                                ? 'bg-gray-100 hover:bg-indigo-100 text-gray-800 hover:text-indigo-600'
-                                                : 'bg-gray-800 hover:bg-indigo-900 text-gray-300 hover:text-indigo-400'
-                                        )}
-                                    >
-                                        <Icon className="text-2xl" />
-                                    </a>
-                                ))}
-                            </div>
-                        </div>
-                    </div>
+                    <div className="flex flex-wrap gap-5 items-center">
+                        {/* No resume download: the CV names the employer and clients,
+                            and this site is deliberately anonymous. Sent on request. */}
+                        <Button as="a" href={`#${SECTION_IDS.CONTACT}`} size="lg">
+                            Get in Touch
+                        </Button>
 
-                    {/* Profile Image - Right Side */}
-                    <div className="flex justify-center md:justify-end order-1 md:order-2">
-                        <div className="relative">
-                            {/* Decorative ring */}
-                            <div className={cn(
-                                'absolute inset-0 rounded-[42%] blur-xl opacity-30',
-                                isLightTheme ? 'bg-indigo-400' : 'bg-indigo-600'
-                            )}></div>
-                            <img
-                                src="/myphoto.jpg"
-                                alt={PERSONAL_INFO.NAME}
-                                className={cn(
-                                    'relative w-64 h-80 md:w-80 md:h-[26rem] lg:w-96 lg:h-[30rem] rounded-[42%] object-contain',
-                                    'ring-8 ring-offset-4 transition-all duration-300 hover:scale-[1.02]',
-                                    isLightTheme
-                                        ? 'ring-indigo-100 ring-offset-white bg-gray-50'
-                                        : 'ring-indigo-900/30 ring-offset-gray-800 bg-gray-900'
-                                )}
-                            />
+                        <div className="flex gap-1">
+                            {socialLinks.map(({ href, icon: Icon, label }) => (
+                                <a
+                                    key={label}
+                                    href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={label}
+                                    className="p-2.5 rounded text-ink-muted hover:text-accent transition-colors duration-200"
+                                >
+                                    <Icon className="text-xl" />
+                                </a>
+                            ))}
                         </div>
                     </div>
                 </div>
+
+                {/* No order utilities: DOM order is text-then-photo, which is what we
+                    want stacked on mobile. The grid puts them side by side on desktop. */}
+                <div className="flex justify-center md:justify-end">
+                    <img
+                        src="/myphoto.jpg"
+                        alt={PERSONAL_INFO.NAME}
+                        className="w-44 h-44 md:w-full md:h-auto md:max-w-[280px] rounded-full md:rounded-lg object-cover border border-line"
+                    />
+                </div>
             </div>
-        </section>
-    );
-};
+        </div>
+    </section>
+);
 
 export default Hero;

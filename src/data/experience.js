@@ -17,12 +17,12 @@ const experience = [
     period: 'Oct 2025 — Present',
     current: true,
     highlights: [
-      'I work on the backend of a multi-tenant EHR and patient-onboarding platform built with FastAPI and PostgreSQL — around 260 modules covering patient records, clinical charting, service tickets, claims and DME orders, all under a strict routes → services → models split.',
-      'Durable medical equipment ordering is mine end to end. I built the integration with the vendor API — order bundles, cascading status detection, and the background workers that keep our records and theirs in sync.',
-      'I built our integration with a federal healthcare API: OAuth2 client credentials through an enterprise Okta login, then FHIR R4 for eligibility checks, patient alignment and submission status.',
-      'I own the claims path — generating X12 837 claim files, getting them to a clearinghouse over SFTP, and wiring up ICD-10 code lookup for coding.',
-      "I'm the main contributor to our EHR plugin monorepo — 75 of 144 commits. The one I'm proudest of is an AI scribe that takes a raw visit transcript and turns it into properly coded chart entries across 15+ sections. I've also built a clinical letter and progress-note generator, a shared chart-note data API that other plugins parse against, and the patient intake and consent forms.",
-      'I wrote our clinical data migration pipeline end to end. It pulls complete structured records out of scanned clinical PDFs using an LLM with enforced response schemas, pinned to a single region so patient data stays where it should, then loads them into the EHR over FHIR. It ships with a de-identification tool and a synthetic data generator so we can test without touching real patient records.',
+      'Backend work on a multi-tenant EHR and patient-onboarding platform — ~260 FastAPI + PostgreSQL modules covering records, charting, tickets, claims and DME orders, under a strict routes → services → models split.',
+      'DME ordering, end to end: the vendor API integration, order bundles, cascading status detection, and the background workers that keep our records and theirs in sync.',
+      'A federal healthcare API integration — OAuth2 client credentials through an enterprise Okta login, then FHIR R4 for eligibility, patient alignment and submission status.',
+      'The claims path: generating X12 837 files, delivering them to a clearinghouse over SFTP, and ICD-10 code lookup for coding.',
+      'Main contributor to our EHR plugin monorepo (75 of 144 commits). Proudest of an AI scribe that turns a raw visit transcript into properly coded chart entries across 15+ sections; also a letter and progress-note generator, a shared chart-note data API, and the patient intake and consent forms.',
+      'Our clinical data migration pipeline, written end to end — pulls structured records out of scanned PDFs via a region-pinned LLM with enforced response schemas, loads them over FHIR, and ships with a de-identification tool and synthetic data generator so we can test without real patient records.',
     ],
     stack: [
       'Python',

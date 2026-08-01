@@ -1,23 +1,13 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useTheme } from '../../contexts/ThemeContext';
 import { Section, Input, Textarea, Button } from '../ui';
-import { getThemeClasses, cn } from '../../utils/classNames';
 import { validateContactForm } from '../../utils/validation';
-import { API_ENDPOINTS, CONTACT_INFO } from '../../constants';
+import { API_ENDPOINTS, CONTACT_INFO, SECTION_IDS } from '../../constants';
 
 const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
 const Contact = () => {
-    const { isLightTheme } = useTheme();
-    const themeClasses = getThemeClasses(isLightTheme);
-
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        message: '',
-    });
-
+    const [formData, setFormData] = useState({ name: '', email: '', message: '' });
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -39,102 +29,101 @@ const Contact = () => {
         try {
             const response = await fetch(API_ENDPOINTS.WEB3FORMS, {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                },
-                body: JSON.stringify({
-                    ...formData,
-                    access_key: accessKey,
-                }),
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                body: JSON.stringify({ ...formData, access_key: accessKey }),
             });
 
             const result = await response.json();
 
             if (result.success) {
                 setFormData({ name: '', email: '', message: '' });
-                toast.success('Email sent successfully!');
+                toast.success('Message sent — thanks, I’ll get back to you.');
             } else {
-                throw new Error('Failed to send email');
+                throw new Error('Failed to send message');
             }
         } catch (error) {
             console.error('Contact form error:', error);
-            toast.error('Error occurred while sending email! Try again!');
+            toast.error('Something went wrong. Try again, or email me directly.');
         } finally {
             setIsSubmitting(false);
         }
     };
 
     return (
-        <Section
-            id="contact"
-            title="GET IN TOUCH"
-            fullHeight
-            className={`${themeClasses.background} ${themeClasses.text}`}
-        >
-            <div className="flex flex-col md:flex-row md:space-x-8 space-y-6 md:space-y-0 justify-evenly items-center">
-                {/* Illustration */}
-                <div className="md:w-1/2 flex justify-center">
-                    <img
-                        src="/email.svg"
-                        alt="Contact illustration"
-                        className="w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 object-contain rounded-full hover:shadow-lg transition-all duration-300 hover:scale-105"
-                    />
-                </div>
+        <Section id={SECTION_IDS.CONTACT} eyebrow="04 / contact" title="Get in touch">
+            <div className="grid md:grid-cols-2 gap-12 md:gap-16">
+                <div>
+                    <p className="text-base leading-relaxed text-ink-muted mb-6">
+                        Happy to talk about backend work, healthcare integrations, or anything
+                        you’ve read here. I’ll send my CV on request.
+                    </p>
 
-                {/* Contact Form */}
-                <div className="md:w-1/2 w-full">
-                    <form
-                        onSubmit={handleSubmit}
-                        noValidate
-                        className="flex flex-col space-y-4 max-w-md mx-auto"
-                    >
-                        <Input
-                            type="text"
-                            name="name"
-                            placeholder="Your name"
-                            value={formData.name}
-                            onChange={handleChange}
-                            error={errors.name}
-                            required
-                        />
-                        <Input
-                            type="email"
-                            name="email"
-                            placeholder="Email address"
-                            value={formData.email}
-                            onChange={handleChange}
-                            error={errors.email}
-                            required
-                        />
-                        <Textarea
-                            name="message"
-                            placeholder="Message"
-                            value={formData.message}
-                            onChange={handleChange}
-                            error={errors.message}
-                            required
-                            rows={5}
-                        />
-                        <Button
-                            type="submit"
-                            disabled={isSubmitting || !accessKey}
-                            className="w-full"
-                        >
-                            {isSubmitting ? 'Sending...' : 'Send Message'}
-                        </Button>
-                        {!accessKey && (
-                            // red-500 on the dark surface measures 3.9:1 — below AA at 14px.
-                            <p className={cn('text-sm', isLightTheme ? 'text-red-600' : 'text-red-400')}>
-                                The contact form is unavailable right now. Email me directly at{' '}
-                                <a href={`mailto:${CONTACT_INFO.EMAIL}`} className="underline">
+                    <dl className="space-y-3 font-mono text-sm">
+                        <div>
+                            <dt className="text-ink-subtle text-xs uppercase tracking-wider mb-0.5">
+                                email
+                            </dt>
+                            <dd>
+                                <a
+                                    href={`mailto:${CONTACT_INFO.EMAIL}`}
+                                    className="text-ink hover:text-accent transition-colors duration-200"
+                                >
                                     {CONTACT_INFO.EMAIL}
                                 </a>
-                                .
-                            </p>
-                        )}
-                    </form>
+                            </dd>
+                        </div>
+                        <div>
+                            <dt className="text-ink-subtle text-xs uppercase tracking-wider mb-0.5">
+                                location
+                            </dt>
+                            <dd className="text-ink-muted">Bangladesh · remote</dd>
+                        </div>
+                    </dl>
                 </div>
+
+                <form onSubmit={handleSubmit} noValidate className="flex flex-col gap-4">
+                    <Input
+                        type="text"
+                        name="name"
+                        placeholder="Your name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        error={errors.name}
+                        required
+                    />
+                    <Input
+                        type="email"
+                        name="email"
+                        placeholder="Email address"
+                        value={formData.email}
+                        onChange={handleChange}
+                        error={errors.email}
+                        required
+                    />
+                    <Textarea
+                        name="message"
+                        placeholder="Message"
+                        value={formData.message}
+                        onChange={handleChange}
+                        error={errors.message}
+                        rows={6}
+                        required
+                    />
+                    <Button type="submit" disabled={isSubmitting || !accessKey} className="w-full">
+                        {isSubmitting ? 'Sending…' : 'Send message'}
+                    </Button>
+                    {!accessKey && (
+                        <p className="font-mono text-xs text-ink-subtle">
+                            Form unavailable — email me at{' '}
+                            <a
+                                href={`mailto:${CONTACT_INFO.EMAIL}`}
+                                className="text-accent hover:underline"
+                            >
+                                {CONTACT_INFO.EMAIL}
+                            </a>
+                        </p>
+                    )}
+                </form>
             </div>
         </Section>
     );

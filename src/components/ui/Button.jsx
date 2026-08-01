@@ -15,19 +15,19 @@ const Button = ({
     as = 'button',
     ...props
 }) => {
-    const baseStyles = 'inline-flex items-center justify-center font-medium transition-all duration-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed';
+    const baseStyles = 'inline-flex items-center justify-center font-medium transition-colors duration-200 rounded-md disabled:opacity-50 disabled:cursor-not-allowed';
 
     const variants = {
-        primary: 'bg-indigo-600 text-white hover:bg-indigo-700 focus:ring-indigo-500 active:scale-95',
-        secondary: 'bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-500',
-        outline: 'border-2 border-indigo-600 text-indigo-600 hover:bg-indigo-50 focus:ring-indigo-500',
-        ghost: 'text-indigo-600 hover:bg-indigo-50 focus:ring-indigo-500',
+        primary: 'bg-accent text-accent-contrast hover:bg-accent-hover',
+        secondary: 'bg-surface-hover text-ink hover:bg-line',
+        outline: 'border border-accent text-accent hover:bg-accent/10',
+        ghost: 'text-accent hover:bg-accent/10',
     };
 
     const sizes = {
         sm: 'px-3 py-1.5 text-sm',
         md: 'px-5 py-2.5 text-base',
-        lg: 'px-6 py-3 text-lg',
+        lg: 'px-6 py-3 text-base',
     };
 
     const Component = as;
@@ -35,10 +35,7 @@ const Button = ({
 
     if (as === 'a') {
         return (
-            <Component
-                className={combinedClassName}
-                {...props}
-            >
+            <Component className={combinedClassName} {...props}>
                 {children}
             </Component>
         );

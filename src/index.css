@@ -1,26 +1,64 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Roboto:wght@400;500;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@400;500;600&display=swap');
+/* Two families only. This file previously loaded six (Poppins, Roboto, Inter,
+   Playfair Display, Montserrat, Open Sans) of which four were never used. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* ---------------------------------------------------------------------------
+   Design tokens — the single source of truth for colour.
+
+   Values are space-separated RGB triplets, NOT hex, so Tailwind's
+   <alpha-value> syntax can compose opacity (`bg-accent/10`). Switching a value
+   to hex here silently breaks every opacity modifier in the app.
+
+   Theme is selected by `data-theme` on <html>, set by ThemeContext. Dark is the
+   default so an unstyled first paint is already correct.
+--------------------------------------------------------------------------- */
 @layer base {
+    :root {
+        --surface: 15 23 42;
+        --surface-raised: 30 41 59;
+        --surface-hover: 51 65 85;
+        --line: 51 65 85;
+        --ink: 226 232 240;
+        --ink-muted: 148 163 184;
+        --ink-subtle: 125 139 158;
+        --accent: 16 185 129;
+        --accent-hover: 52 211 153;
+        --accent-contrast: 4 36 26;
+    }
+
+    [data-theme='light'] {
+        --surface: 248 250 252;
+        --surface-raised: 255 255 255;
+        --surface-hover: 241 245 249;
+        --line: 226 232 240;
+        --ink: 15 23 42;
+        --ink-muted: 71 85 105;
+        --ink-subtle: 100 116 139;
+        /* emerald-700, not the emerald-500 used in dark: emerald-500 on white
+           measures ~2.3:1 and fails AA as text. It survives only as a fill. */
+        --accent: 4 120 87;
+        --accent-hover: 6 95 70;
+        --accent-contrast: 255 255 255;
+    }
+
     * {
         @apply scroll-smooth;
     }
 
-    /* Matches getThemeClasses().background so there is no seam when React mounts.
-       Prevents a white flash while the bundle downloads. */
+    /* Reads the same token the app does, so there is no seam when React mounts
+       and no flash while the bundle downloads. */
     body {
-        @apply antialiased bg-gray-800;
+        @apply antialiased bg-surface text-ink;
     }
 
-    @media (prefers-color-scheme: light) {
-        body {
-            @apply bg-white;
-        }
+    /* Keyboard users need to see where they are. Mouse users never see this. */
+    :focus-visible {
+        @apply outline-none ring-2 ring-accent ring-offset-2;
+        --tw-ring-offset-color: rgb(var(--surface));
     }
 }
 
@@ -28,8 +66,17 @@
     .text-shadow {
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+}
 
-    .transition-smooth {
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+/* Respect the OS "reduce motion" setting — vestibular disorders, and anyone who
+   simply finds movement distracting. */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
     }
 }

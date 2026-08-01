@@ -23,24 +23,29 @@ Single-page React 19 + Vite portfolio. No router — `App.jsx` stacks all sectio
 (`Navbartop`, `Hero`, `Experience`, `Projects`, `Skills`, `Contact`, `Footer`) separated by `<hr>`;
 navigation is anchor links to section IDs.
 
-### Theming is manual, not Tailwind `dark:`
+### Colour is CSS variables + semantic Tailwind tokens
 
-`tailwind.config.js` has no `darkMode` setting and components do **not** use `dark:` variants.
-Instead:
+There are no `dark:` variants and no per-component theme branching. Components write semantic
+class names — `bg-surface`, `bg-surface-raised`, `border-line`, `text-ink`, `text-ink-muted`,
+`text-ink-subtle`, `text-accent` — and never a palette colour like `gray-800` or `indigo-500`.
 
-- [ThemeContext.jsx](src/contexts/ThemeContext.jsx) holds a single `isLightTheme` boolean, resolved
-  synchronously from `localStorage` then `prefers-color-scheme`, and persisted on change.
-- Components call `useTheme()` then `getThemeClasses(isLightTheme)` from [classNames.js](src/utils/classNames.js),
-  which returns a fixed map (`background`, `text`, `card`, `border`, `navbar`, …) of Tailwind class strings.
+- [index.css](src/index.css) declares every token twice: `:root` (dark, the default) and
+  `[data-theme='light']`. **This is the only place colour values live.**
+- [tailwind.config.js](tailwind.config.js) maps tokens via `rgb(var(--x) / <alpha-value>)`.
+  Values must be **space-separated RGB triplets, not hex** — switching to hex silently breaks
+  every opacity modifier (`bg-accent/10`) with no error.
+- [ThemeContext.jsx](src/contexts/ThemeContext.jsx) sets `data-theme` on `<html>`. It's applied at
+  **module load**, before React renders, so the first paint is already correct. Doing it only in the
+  effect paints dark then snaps — that's the flash this is designed to prevent.
+- `useTheme()` is used by `Navbartop` alone, purely to pick the toggle icon. If you find yourself
+  importing it for colour, use a token instead.
 
-When adding themed UI, extend `getThemeClasses` rather than introducing `dark:` variants —
-mixing the two approaches will break, since there is no `dark` class on `<html>`.
+Light is not a hex swap of dark: its accent is emerald-**700**, because emerald-500 on white
+measures ~2.3:1 and fails AA as text. It survives only as a fill behind white text.
 
-The `body` background in [index.css](src/index.css) intentionally mirrors `getThemeClasses().background`
-so there's no flash before the bundle loads. **If you change either, change both** or a seam appears on load.
-
-`cn(...)` in classNames.js is a minimal `classes.filter(Boolean).join(' ')` — no tailwind-merge,
-so later conflicting classes do **not** override earlier ones. Order/duplication matters.
+`cn(...)` in [classNames.js](src/utils/classNames.js) is a minimal `filter(Boolean).join(' ')` — no
+tailwind-merge, so later conflicting classes do **not** override earlier ones. Emit one class per
+property (see `fieldStyles.js` for the pattern).
 
 ### Content lives in data files, not JSX
 
@@ -70,9 +75,15 @@ absolute path (`/projects/foo.png`).
 
 [src/components/ui/](src/components/ui/) (`Button`, `Card`, `Badge`, `Section`, `Input`, `Textarea`)
 are exported via a barrel — import as `import { Section, Button } from '../ui'`. All use PropTypes
-(the project is plain JS, no TypeScript). `Section` supplies the section wrapper, max-width, padding,
-and centered title; sections pass theme classes in via `className`. `Input`/`Textarea` accept an
-`error` prop and render it — reuse that rather than building new error UI.
+(the project is plain JS, no TypeScript).
+
+`Section` supplies the wrapper, max-width, padding, top border, and the heading block: a mono
+`eyebrow` (`01 / experience`) above a left-aligned `title`. Sections no longer receive theme
+classes from their parent — `Section` sets `bg-surface text-ink` itself.
+
+`Input`/`Textarea` accept an `error` prop and render it — reuse that rather than building new
+error UI. Their shared styling lives in `fieldStyles.js`, split into parts so the error state
+*replaces* the base border instead of layering a second `border-*` class on top of it.
 
 ### Scroll spy
 

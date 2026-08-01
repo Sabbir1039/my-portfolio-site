@@ -1,20 +1,14 @@
 /**
  * Shared form-field styling for Input and Textarea.
  *
- * Split into named parts rather than one string because `cn()` is a plain join with
- * no tailwind-merge — emitting two conflicting `border-*` classes would leave the
- * winner up to stylesheet order. Each part must therefore resolve to exactly one
- * class per property.
+ * No theme branching — colour comes from tokens. Kept as separate parts because
+ * `cn()` has no tailwind-merge: the border must resolve to exactly one class, so
+ * the error state replaces the base border rather than layering on top of it.
  */
-export const getFieldClasses = (isLightTheme, error) => ({
-    base: 'w-full px-4 py-2.5 rounded-lg border transition-all duration-200 focus:outline-none focus:ring-2 focus:border-transparent',
-    surface: isLightTheme
-        ? 'bg-white text-gray-900 placeholder-gray-500'
-        : 'bg-gray-900 text-gray-100 placeholder-gray-400',
-    border: error
-        ? 'border-red-500 focus:ring-red-400'
-        : isLightTheme
-            ? 'border-gray-300 focus:ring-indigo-400'
-            : 'border-gray-700 focus:ring-indigo-500',
-    errorText: isLightTheme ? 'text-red-600' : 'text-red-400',
-});
+export const FIELD_BASE =
+    'w-full px-3.5 py-2.5 rounded-md border bg-surface-raised text-ink placeholder-ink-subtle transition-colors duration-200';
+
+export const fieldBorder = (error) =>
+    error ? 'border-red-500' : 'border-line focus:border-accent';
+
+export const FIELD_ERROR_TEXT = 'mt-1.5 font-mono text-xs text-red-500';

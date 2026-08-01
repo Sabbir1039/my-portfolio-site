@@ -21,15 +21,16 @@ export const CONTACT_INFO = {
 export const PERSONAL_INFO = {
     NAME: 'MD SABBIR HOSSAIN',
     BRAND_NAME: 'SABBIR',
-    TITLE: 'Backend Engineer — Python, FastAPI & Healthcare Systems',
-    GREETING: "Hello, I'm",
-    BIO: `I'm a backend engineer from Bangladesh building HIPAA-compliant healthcare software — multi-tenant EHR
-    services, clinical workflow tooling, and the integrations that move patient data between systems that were never
-    designed to talk to each other. Day to day that means designing clean REST APIs, modeling data with Pydantic and
-    SQLAlchemy, and wiring FastAPI services to FHIR R4, OAuth2, and X12 claims pipelines. I care about strict
-    architectural layering, well-typed code, and integrations that fail loudly instead of quietly losing a record.
-    Most of my professional work is under NDA, so the projects below describe the systems and the engineering,
-    not the customers.`,
+    TITLE: 'backend engineer · python · fastapi · healthcare',
+    GREETING: "// backend engineer",
+    // Kept deliberately short. The previous version ran to ~90 words in a narrow
+    // column — a wall of text nobody reads. Detail belongs in Experience.
+    BIO: `I build the integrations that move patient data between systems that were never designed
+    to talk to each other — FHIR, X12 claims, vendor APIs — for a HIPAA-regulated EHR platform.
+    Mostly Python and FastAPI, with a lot of care about clean data modelling and integrations
+    that fail loudly instead of quietly losing a record.`,
+    NDA_NOTE:
+        'Most of my professional work is under NDA, so the projects below describe the systems and the engineering, not the customers.',
 };
 
 // Animation durations (in ms)

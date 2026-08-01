@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { cn } from '../../utils/classNames';
-import { useTheme } from '../../contexts/ThemeContext';
-import { getFieldClasses } from './fieldStyles';
+import { FIELD_BASE, fieldBorder, FIELD_ERROR_TEXT } from './fieldStyles';
 
 /**
  * Reusable Input component
@@ -16,9 +15,6 @@ const Input = ({
     error,
     ...props
 }) => {
-    const { isLightTheme } = useTheme();
-    const field = getFieldClasses(isLightTheme, error);
-
     return (
         <div className="w-full">
             <input
@@ -27,10 +23,10 @@ const Input = ({
                 value={value}
                 onChange={onChange}
                 required={required}
-                className={cn(field.base, field.surface, field.border, className)}
+                className={cn(FIELD_BASE, fieldBorder(error), className)}
                 {...props}
             />
-            {error && <p className={cn('mt-1 text-sm', field.errorText)}>{error}</p>}
+            {error && <p className={FIELD_ERROR_TEXT}>{error}</p>}
         </div>
     );
 };

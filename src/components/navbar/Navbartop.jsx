@@ -1,120 +1,83 @@
 import { useState } from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
-import { FaAdjust, FaBars, FaTimes } from 'react-icons/fa';
-import { getThemeClasses, cn } from '../../utils/classNames';
+import { FiSun, FiMoon, FiMenu, FiX } from 'react-icons/fi';
+import { cn } from '../../utils/classNames';
 import { PERSONAL_INFO, SECTION_IDS } from '../../constants';
 import { useScrollSpy } from '../../hooks/useScroll';
 import navLinks, { navLinkIds } from './NavLinks';
 
 function Navbartop() {
+  // The only component that still needs the theme value — everything else reads
+  // colour from tokens. This is here purely to pick the toggle icon.
   const { isLightTheme, toggleTheme } = useTheme();
-  const themeClasses = getThemeClasses(isLightTheme);
 
   const activeSection = useScrollSpy(navLinkIds);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const handleMenuItemClick = () => {
-    setMenuOpen(false);
-  };
-
-  const handleThemeToggle = () => {
-    toggleTheme();
-    setMenuOpen(false);
-  };
+  const linkClass = (id) =>
+    cn(
+      'font-mono text-xs tracking-wide transition-colors duration-200',
+      activeSection === id ? 'text-accent' : 'text-ink-muted hover:text-ink'
+    );
 
   return (
-    <nav
-      className={cn(
-        'fixed w-full z-50 shadow-md transition-colors duration-300',
-        themeClasses.navbar
-      )}
-    >
-      <div className="max-w-7xl mx-auto px-4 flex justify-between items-center h-16">
-        {/* Brand */}
+    <nav className="fixed w-full z-50 bg-surface/90 backdrop-blur border-b border-line">
+      <div className="max-w-5xl mx-auto px-6 flex justify-between items-center h-14">
         <a
           href={`#${SECTION_IDS.HERO}`}
-          className="flex items-center space-x-2 font-bold text-lg hover:text-indigo-600 transition-colors duration-300"
+          className="font-mono text-sm font-medium text-ink hover:text-accent transition-colors duration-200"
         >
-          <img
-            src="/portfolio.png"
-            alt="Logo"
-            className="w-8 h-8 font-heading"
-          />
-          <span>{PERSONAL_INFO.BRAND_NAME}</span>
+          {PERSONAL_INFO.BRAND_NAME.toLowerCase()}
         </a>
 
-        {/* Desktop Menu */}
-        <div className="font-sans hidden md:flex items-center space-x-6">
+        {/* Desktop */}
+        <div className="hidden md:flex items-center gap-7">
           {navLinks.map((link) => (
-            <a
-              key={link.id}
-              href={`#${link.id}`}
-              className={cn(
-                'transition-all duration-300',
-                isLightTheme ? 'hover:text-indigo-600' : 'hover:text-indigo-400',
-                activeSection === link.id && (isLightTheme ? 'text-indigo-600 font-semibold' : 'text-indigo-400 font-semibold')
-              )}
-            >
-              {link.label}
+            <a key={link.id} href={`#${link.id}`} className={linkClass(link.id)}>
+              {link.label.toLowerCase()}
             </a>
           ))}
-
-          {/* Theme Toggle Button */}
           <button
             onClick={toggleTheme}
-            aria-label="Toggle theme"
-            className={cn(
-              'p-2 rounded-full transition-all duration-300',
-              themeClasses.hover
-            )}
+            aria-label={isLightTheme ? 'Switch to dark theme' : 'Switch to light theme'}
+            className="p-1.5 rounded text-ink-muted hover:text-accent transition-colors duration-200"
           >
-            <FaAdjust size={20} />
+            {isLightTheme ? <FiMoon size={16} /> : <FiSun size={16} />}
           </button>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* Mobile */}
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-          className="md:hidden p-2"
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={menuOpen}
+          className="md:hidden p-1.5 text-ink"
         >
-          {menuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+          {menuOpen ? <FiX size={18} /> : <FiMenu size={18} />}
         </button>
       </div>
 
-      {/* Mobile Menu Drawer */}
       {menuOpen && (
-        <div
-          className={cn(
-            'font-sans md:hidden absolute top-16 left-0 w-full py-6 px-4 space-y-4 shadow-lg',
-            themeClasses.navbar
-          )}
-        >
+        <div className="md:hidden bg-surface border-t border-line px-6 py-5 space-y-4">
           {navLinks.map((link) => (
             <a
               key={link.id}
               href={`#${link.id}`}
-              onClick={handleMenuItemClick}
-              className={cn(
-                'block transition-all duration-300',
-                isLightTheme ? 'hover:text-indigo-600' : 'hover:text-indigo-400',
-                activeSection === link.id && (isLightTheme ? 'text-indigo-600 font-semibold' : 'text-indigo-400 font-semibold')
-              )}
+              onClick={() => setMenuOpen(false)}
+              className={cn('block', linkClass(link.id))}
             >
-              {link.label}
+              {link.label.toLowerCase()}
             </a>
           ))}
-
-          {/* Theme Toggle */}
           <button
-            onClick={handleThemeToggle}
-            className={cn(
-              'flex items-center space-x-2 p-2 rounded transition-all duration-300',
-              themeClasses.hover
-            )}
+            onClick={() => {
+              toggleTheme();
+              setMenuOpen(false);
+            }}
+            className="flex items-center gap-2 font-mono text-xs text-ink-muted hover:text-accent transition-colors duration-200"
           >
-            <FaAdjust size={20} />
-            <span>Toggle Theme</span>
+            {isLightTheme ? <FiMoon size={14} /> : <FiSun size={14} />}
+            {isLightTheme ? 'dark mode' : 'light mode'}
           </button>
         </div>
       )}
