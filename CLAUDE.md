@@ -17,6 +17,11 @@ No test framework is configured — there are no tests to run.
 Setup: `cp .env.example .env`, then set `VITE_WEB3FORMS_ACCESS_KEY` (free key from web3forms.com).
 Without it the contact form renders but submit is disabled and a fallback email is shown.
 
+> Vite **inlines every `VITE_`-prefixed variable into the client bundle**, so anything with that
+> prefix is public by definition. The Web3Forms access key is designed to be public and is fine
+> here. Never give a real secret — an API token, a private key — a `VITE_` prefix; it would ship
+> to every visitor. Server-side secrets have no home in this project.
+
 ## Architecture
 
 Single-page React 19 + Vite portfolio. No router — `App.jsx` stacks all sections
