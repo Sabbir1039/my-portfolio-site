@@ -11,19 +11,20 @@
         @apply scroll-smooth;
     }
 
+    /* Matches getThemeClasses().background so there is no seam when React mounts.
+       Prevents a white flash while the bundle downloads. */
     body {
-        @apply antialiased;
+        @apply antialiased bg-gray-800;
+    }
+
+    @media (prefers-color-scheme: light) {
+        body {
+            @apply bg-white;
+        }
     }
 }
 
 @layer utilities {
-    .line-clamp-3 {
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
-    }
-
     .text-shadow {
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }

@@ -1,39 +1,17 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 import { useTheme } from '../../contexts/ThemeContext';
 import { FaAdjust, FaBars, FaTimes } from 'react-icons/fa';
 import { getThemeClasses, cn } from '../../utils/classNames';
-import { PERSONAL_INFO, NAV_CONFIG, SECTION_IDS } from '../../constants';
-import navLinks from './NavLinks';
+import { PERSONAL_INFO, SECTION_IDS } from '../../constants';
+import { useScrollSpy } from '../../hooks/useScroll';
+import navLinks, { navLinkIds } from './NavLinks';
 
 function Navbartop() {
   const { isLightTheme, toggleTheme } = useTheme();
   const themeClasses = getThemeClasses(isLightTheme);
 
-  const [activeSection, setActiveSection] = useState(SECTION_IDS.HERO);
+  const activeSection = useScrollSpy(navLinkIds);
   const [menuOpen, setMenuOpen] = useState(false);
-
-  // Handle scroll to highlight active section
-  const handleScroll = useCallback(() => {
-    const scrollPosition = window.scrollY;
-    const sections = document.querySelectorAll('section');
-
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
-
-      if (
-        scrollPosition >= sectionTop - NAV_CONFIG.SCROLL_OFFSET &&
-        scrollPosition < sectionTop + sectionHeight - NAV_CONFIG.SCROLL_OFFSET
-      ) {
-        setActiveSection(section.id);
-      }
-    });
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
 
   const handleMenuItemClick = () => {
     setMenuOpen(false);

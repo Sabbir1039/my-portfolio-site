@@ -1,72 +1,87 @@
 import {
-  SiReact,
-  SiBootstrap,
-  SiHtml5,
-  SiCss3,
-  SiDjango,
-  SiFastapi,
   SiPython,
   SiJavascript,
-  SiScrapy,
-  SiSelenium,
-  SiPandas,
-  SiMongodb,
-  SiGit,
-  SiDocker,
-  SiLinux,
   SiGnubash,
+  SiFastapi,
+  SiDjango,
+  SiPydantic,
+  SiSqlalchemy,
+  SiReact,
+  SiNextdotjs,
+  SiTailwindcss,
+  SiPostgresql,
+  SiMongodb,
+  SiDocker,
+  SiGit,
+  SiLinux,
+  SiPostman,
+  SiAmazonwebservices,
+  SiGithubactions,
+  SiPandas,
+  SiSelenium,
+  SiPytest,
+  SiGooglegemini,
 } from 'react-icons/si';
-import { IoCodeSlash } from 'react-icons/io5';
-import { FaCode, FaDotCircle, FaDatabase } from 'react-icons/fa';
+import { FaCode, FaDatabase, FaHeartbeat } from 'react-icons/fa';
 
 /**
  * Skill categories
  */
 export const SKILL_CATEGORIES = {
-  FRONTEND: 'Frontend',
-  BACKEND: 'Backend',
   LANGUAGES: 'Languages',
-  LIBRARIES: 'Libraries',
+  BACKEND: 'Backend',
+  FRONTEND: 'Frontend',
   DATABASES: 'Databases',
   TOOLS: 'Tools',
+  DOMAIN: 'Domain & AI',
+  LEARNING: 'Currently Learning',
 };
 
 /**
  * Skills data organized by category
  */
 const skillsData = {
-  [SKILL_CATEGORIES.FRONTEND]: [
-    { name: 'React', icon: SiReact },
-    { name: 'Bootstrap', icon: SiBootstrap },
-    { name: 'HTML', icon: SiHtml5 },
-    { name: 'CSS', icon: SiCss3 },
-  ],
-  [SKILL_CATEGORIES.BACKEND]: [
-    { name: 'Django', icon: SiDjango },
-    { name: 'FastAPI', icon: SiFastapi },
-    { name: 'Blazor', icon: FaDotCircle },
-  ],
   [SKILL_CATEGORIES.LANGUAGES]: [
     { name: 'Python', icon: SiPython },
     { name: 'JavaScript', icon: SiJavascript },
-    { name: 'Bash', icon: SiGnubash },
     { name: 'SQL', icon: FaDatabase },
+    { name: 'Bash', icon: SiGnubash },
   ],
-  [SKILL_CATEGORIES.LIBRARIES]: [
-    { name: 'Scrapy', icon: SiScrapy },
-    { name: 'Selenium', icon: SiSelenium },
-    { name: 'BeautifulSoup', icon: IoCodeSlash },
-    { name: 'Pandas', icon: SiPandas },
+  [SKILL_CATEGORIES.BACKEND]: [
+    { name: 'FastAPI', icon: SiFastapi },
+    { name: 'Pydantic', icon: SiPydantic },
+    { name: 'SQLAlchemy', icon: SiSqlalchemy },
+    { name: 'Alembic', icon: FaDatabase },
+    { name: 'Django', icon: SiDjango },
+    { name: 'pytest', icon: SiPytest },
+  ],
+  [SKILL_CATEGORIES.FRONTEND]: [
+    { name: 'React', icon: SiReact },
+    { name: 'Next.js', icon: SiNextdotjs },
+    { name: 'Tailwind CSS', icon: SiTailwindcss },
   ],
   [SKILL_CATEGORIES.DATABASES]: [
-    { name: 'SQL Server', icon: FaDatabase },
+    { name: 'PostgreSQL', icon: SiPostgresql },
     { name: 'MongoDB', icon: SiMongodb },
   ],
   [SKILL_CATEGORIES.TOOLS]: [
-    { name: 'Git', icon: SiGit },
-    { name: 'VS Code', icon: FaCode },
     { name: 'Docker', icon: SiDocker },
     { name: 'Linux', icon: SiLinux },
+    { name: 'Bash', icon: SiGnubash },
+    { name: 'Git', icon: SiGit },
+    { name: 'Postman', icon: SiPostman },
+    { name: 'VS Code', icon: FaCode },
+  ],
+  [SKILL_CATEGORIES.DOMAIN]: [
+    { name: 'FHIR / HL7', icon: FaHeartbeat },
+    { name: 'LLM Integration', icon: SiGooglegemini },
+    { name: 'Pandas', icon: SiPandas },
+    { name: 'Selenium', icon: SiSelenium },
+  ],
+  [SKILL_CATEGORIES.LEARNING]: [
+    { name: 'AWS', icon: SiAmazonwebservices },
+    { name: 'CI/CD', icon: SiGithubactions },
+    { name: 'Docker Compose', icon: SiDocker },
   ],
 };
 

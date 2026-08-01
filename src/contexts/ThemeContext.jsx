@@ -1,9 +1,20 @@
-import { createContext, useState, useContext, useMemo, useCallback } from "react";
+import { createContext, useState, useContext, useMemo, useCallback, useEffect } from "react";
 
-// Create context with default values
-export const ThemeContext = createContext();
+const STORAGE_KEY = "theme";
 
-// Custom hook for easier access to theme context
+// Stored choice wins; otherwise follow the OS. Resolved synchronously so React's
+// first paint is already correct.
+const resolveInitialTheme = () =>
+  (localStorage.getItem(STORAGE_KEY) ??
+    (window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark")) === "light";
+
+// Not exported — every consumer goes through useTheme().
+const ThemeContext = createContext();
+
+// Custom hook for easier access to theme context. Co-located with its provider on
+// purpose — 12 files import it from this path. Costs fast-refresh granularity for
+// this one file only.
+// eslint-disable-next-line react-refresh/only-export-components
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) {
@@ -13,7 +24,11 @@ export const useTheme = () => {
 };
 
 const ThemeContextProvider = ({ children }) => {
-  const [isLightTheme, setIsLightTheme] = useState(false);
+  const [isLightTheme, setIsLightTheme] = useState(resolveInitialTheme);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, isLightTheme ? "light" : "dark");
+  }, [isLightTheme]);
 
   // Memoize the toggle function to prevent unnecessary re-renders
   const handleThemeToggle = useCallback(() => {

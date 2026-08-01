@@ -11,13 +11,20 @@ const Projects = () => {
   return (
     <Section
       id="projects"
-      title="My Works"
+      title="Projects"
       className={`${themeClasses.background} ${themeClasses.text}`}
     >
-      {/* Projects Grid */}
-      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {/* Flex rather than grid so a partial final row centres instead of leaving
+          an orphan card hanging on the left. Basis values mirror the old
+          sm:grid-cols-2 / lg:grid-cols-3 breakpoints, minus the gap. */}
+      <div className="flex flex-wrap justify-center gap-8">
         {projects.map((project) => (
-          <ProjectCard key={project.id} project={project} />
+          <div
+            key={project.id}
+            className="w-full sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.334rem)] flex"
+          >
+            <ProjectCard project={project} />
+          </div>
         ))}
       </div>
     </Section>

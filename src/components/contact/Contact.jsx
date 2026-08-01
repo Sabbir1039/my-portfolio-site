@@ -2,9 +2,11 @@ import { useState } from 'react';
 import { toast } from 'react-toastify';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Section, Input, Textarea, Button } from '../ui';
-import { getThemeClasses } from '../../utils/classNames';
-import { getApiConfig } from '../../data/api';
-import { API_ENDPOINTS } from '../../constants';
+import { getThemeClasses, cn } from '../../utils/classNames';
+import { validateContactForm } from '../../utils/validation';
+import { API_ENDPOINTS, CONTACT_INFO } from '../../constants';
+
+const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
 
 const Contact = () => {
     const { isLightTheme } = useTheme();
@@ -16,19 +18,25 @@ const Contact = () => {
         message: '',
     });
 
+    const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
+        setErrors((prev) => ({ ...prev, [name]: undefined }));
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        const { isValid, errors: validationErrors } = validateContactForm(formData);
+        setErrors(validationErrors);
+        if (!isValid) return;
+
         setIsSubmitting(true);
 
         try {
-            const { accessKey } = getApiConfig();
             const response = await fetch(API_ENDPOINTS.WEB3FORMS, {
                 method: 'POST',
                 headers: {
@@ -78,6 +86,7 @@ const Contact = () => {
                 <div className="md:w-1/2 w-full">
                     <form
                         onSubmit={handleSubmit}
+                        noValidate
                         className="flex flex-col space-y-4 max-w-md mx-auto"
                     >
                         <Input
@@ -86,6 +95,7 @@ const Contact = () => {
                             placeholder="Your name"
                             value={formData.name}
                             onChange={handleChange}
+                            error={errors.name}
                             required
                         />
                         <Input
@@ -94,6 +104,7 @@ const Contact = () => {
                             placeholder="Email address"
                             value={formData.email}
                             onChange={handleChange}
+                            error={errors.email}
                             required
                         />
                         <Textarea
@@ -101,12 +112,27 @@ const Contact = () => {
                             placeholder="Message"
                             value={formData.message}
                             onChange={handleChange}
+                            error={errors.message}
                             required
                             rows={5}
                         />
-                        <Button type="submit" disabled={isSubmitting} className="w-full">
+                        <Button
+                            type="submit"
+                            disabled={isSubmitting || !accessKey}
+                            className="w-full"
+                        >
                             {isSubmitting ? 'Sending...' : 'Send Message'}
                         </Button>
+                        {!accessKey && (
+                            // red-500 on the dark surface measures 3.9:1 — below AA at 14px.
+                            <p className={cn('text-sm', isLightTheme ? 'text-red-600' : 'text-red-400')}>
+                                The contact form is unavailable right now. Email me directly at{' '}
+                                <a href={`mailto:${CONTACT_INFO.EMAIL}`} className="underline">
+                                    {CONTACT_INFO.EMAIL}
+                                </a>
+                                .
+                            </p>
+                        )}
                     </form>
                 </div>
             </div>

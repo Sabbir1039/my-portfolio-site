@@ -1,6 +1,7 @@
 import './App.css';
 import Navbartop from './components/navbar/Navbartop';
 import Hero from './components/hero/Hero';
+import Experience from './components/experience/Experience';
 import Projects from './components/projects/Projects';
 import Skills from './components/skills/Skills';
 import Contact from './components/contact/Contact';
@@ -17,6 +18,8 @@ function App() {
     <div className="w-full">
       <Navbartop />
       <Hero />
+      <hr className={hrClass} />
+      <Experience />
       <hr className={hrClass} />
       <Projects />
       <hr className={hrClass} />

@@ -23,7 +23,13 @@ export default defineConfig([
       },
     },
     rules: {
-      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      // eslint-plugin-react isn't installed, so JSX usage doesn't count as a
+      // reference. Components destructured out of data (`{ icon: Icon }`) would
+      // otherwise report as unused — same convention as varsIgnorePattern.
+      'no-unused-vars': [
+        'error',
+        { varsIgnorePattern: '^[A-Z_]', argsIgnorePattern: '^[A-Z_]' },
+      ],
     },
   },
 ])

@@ -1,5 +1,7 @@
 import PropTypes from 'prop-types';
 import { cn } from '../../utils/classNames';
+import { useTheme } from '../../contexts/ThemeContext';
+import { getFieldClasses } from './fieldStyles';
 
 /**
  * Reusable Textarea component
@@ -14,6 +16,9 @@ const Textarea = ({
     error,
     ...props
 }) => {
+    const { isLightTheme } = useTheme();
+    const field = getFieldClasses(isLightTheme, error);
+
     return (
         <div className="w-full">
             <textarea
@@ -22,20 +27,10 @@ const Textarea = ({
                 onChange={onChange}
                 required={required}
                 rows={rows}
-                className={cn(
-                    'w-full px-4 py-2.5 rounded-lg border transition-all duration-200 resize-none',
-                    'focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent',
-                    'text-gray-900 placeholder-gray-500',
-                    error
-                        ? 'border-red-500 focus:ring-red-400'
-                        : 'border-gray-300',
-                    className
-                )}
+                className={cn(field.base, 'resize-none', field.surface, field.border, className)}
                 {...props}
             />
-            {error && (
-                <p className="mt-1 text-sm text-red-600">{error}</p>
-            )}
+            {error && <p className={cn('mt-1 text-sm', field.errorText)}>{error}</p>}
         </div>
     );
 };

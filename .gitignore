@@ -41,3 +41,8 @@ Thumbs.db
 # Netlify
 .netlify/
 
+
+# Resume — the named version of the CV (real employer, vendors and clients).
+# The public site is deliberately anonymous, so this must never be committed
+# or deployed. Rendered locally with `npm run resume`; send the PDF directly.
+resume/

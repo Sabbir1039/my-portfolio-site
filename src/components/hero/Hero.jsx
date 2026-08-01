@@ -3,7 +3,7 @@ import { SiLeetcode } from 'react-icons/si';
 import { FiGithub } from 'react-icons/fi';
 import { useTheme } from '../../contexts/ThemeContext';
 import { Button } from '../ui';
-import { PERSONAL_INFO, SOCIAL_LINKS, CONTACT_INFO } from '../../constants';
+import { PERSONAL_INFO, SOCIAL_LINKS, SECTION_IDS } from '../../constants';
 import { getThemeClasses, cn } from '../../utils/classNames';
 
 const Hero = () => {
@@ -17,9 +17,11 @@ const Hero = () => {
     ];
 
     return (
+        // Vertical padding must clear the fixed h-16 navbar at every breakpoint — with the
+        // previous `md:pt-0` the vertically-centred content slid under the nav once the bio grew.
         <section
             id="hero"
-            className={`min-h-screen flex items-center pt-20 sm:pt-16 md:pt-0 transition-colors duration-300 relative overflow-hidden ${themeClasses.background} ${themeClasses.text}`}
+            className={`min-h-screen flex items-center py-24 transition-colors duration-300 relative overflow-hidden ${themeClasses.background} ${themeClasses.text}`}
         >
             {/* Decorative background elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -35,13 +37,16 @@ const Hero = () => {
                             <p className={cn('text-sm md:text-base font-medium uppercase tracking-wider', isLightTheme ? 'text-indigo-600' : 'text-indigo-400')}>
                                 {PERSONAL_INFO.GREETING}
                             </p>
+                            {/* Split on the LAST space, not the first — "MD" is an
+                                honorific, so a first-space split stranded it alone on
+                                line one. Gives "MD SABBIR" / "HOSSAIN". */}
                             <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight">
                                 <span className={cn('bg-gradient-to-r bg-clip-text text-transparent', isLightTheme ? 'from-indigo-600 to-blue-600' : 'from-indigo-400 to-blue-400')}>
-                                    {PERSONAL_INFO.NAME.split(' ')[0]}
+                                    {PERSONAL_INFO.NAME.split(' ').slice(0, -1).join(' ')}
                                 </span>
                                 <br />
                                 <span className={isLightTheme ? 'text-gray-900' : 'text-white'}>
-                                    {PERSONAL_INFO.NAME.split(' ').slice(1).join(' ')}
+                                    {PERSONAL_INFO.NAME.split(' ').slice(-1)[0]}
                                 </span>
                             </h1>
                             <h2 className={cn('text-xl md:text-2xl font-semibold pt-2', isLightTheme ? 'text-gray-900' : 'text-gray-200')}>
@@ -55,14 +60,15 @@ const Hero = () => {
 
                         {/* Actions */}
                         <div className="flex flex-wrap gap-4 items-center pt-4">
+                            {/* No resume download: the CV names the employer and clients,
+                                and this site is deliberately anonymous. It's sent on request. */}
                             <Button
                                 as="a"
-                                href={CONTACT_INFO.RESUME_PATH}
-                                download="CV-of-Md.-Sabbir-Hossain.pdf"
+                                href={`#${SECTION_IDS.CONTACT}`}
                                 size="lg"
                                 className="font-sans shadow-lg"
                             >
-                                Download Resume
+                                Get in Touch
                             </Button>
 
                             <div className="flex gap-4">

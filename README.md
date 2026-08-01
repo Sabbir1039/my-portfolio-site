@@ -1,12 +1,104 @@
-# React + Vite
+# Portfolio Site
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern, clean, and responsive portfolio website built with React and Tailwind CSS.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 🎨 Modern and clean design
+- 🌓 Light/Dark theme support
+- 📱 Fully responsive
+- ⚡ Fast and optimized
+- 🎯 Type-safe with PropTypes
+- 🔒 Environment variable support for API keys
+- 📧 Contact form with Web3Forms integration
+- 🎭 Smooth animations and transitions
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Frontend:** React 19, Tailwind CSS
+- **Build Tool:** Vite
+- **Icons:** React Icons
+- **Forms:** Web3Forms API
+- **Notifications:** React Toastify
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── ui/              # Reusable UI components
+│   ├── hero/            # Hero section
+│   ├── projects/        # Projects section
+│   ├── skills/          # Skills section
+│   ├── contact/         # Contact section
+│   ├── footer/          # Footer section
+│   └── navbar/          # Navigation bar
+├── constants/           # App constants
+├── contexts/            # React contexts
+├── data/                # Data files
+├── hooks/               # Custom hooks
+└── utils/               # Utility functions
+```
+
+## Getting Started
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Create a `.env` file (use `.env.example` as template):
+   ```bash
+   cp .env.example .env
+   ```
+
+4. Add your Web3Forms API key to `.env`:
+   ```
+   VITE_WEB3FORMS_ACCESS_KEY=your_access_key_here
+   ```
+
+5. Run the development server:
+   ```bash
+   npm run dev
+   ```
+
+6. Build for production:
+   ```bash
+   npm run build
+   ```
+
+## Environment Variables
+
+- `VITE_WEB3FORMS_ACCESS_KEY`: Your Web3Forms access key for the contact form
+
+Get your free API key at [web3forms.com](https://web3forms.com/)
+
+Without this key the contact form renders but its submit button is disabled, and visitors are
+shown a direct email address instead. Everything else on the site works normally.
+
+## Resume
+
+`resume/` is **gitignored and not part of the site**. It holds the named version of the CV —
+real employer, vendors and clients — while the published site is deliberately anonymous.
+
+```bash
+npm run resume   # resume/resume.html -> resume/CV-of-Md.-Sabbir-Hossain.pdf (headless Chrome)
+```
+
+The output deliberately lands in `resume/`, not `public/`, so a local `npm run build` can't
+sweep it into `dist/` and publish it. Send the PDF to recruiters directly; the site has no
+download link.
+
+## Code Quality
+
+This project follows modern React best practices:
+- Functional components with hooks
+- PropTypes for type checking
+- Modular and reusable components
+- Clean code architecture
+- Proper separation of concerns
+
+## License
+
+MIT License - feel free to use this portfolio as a template for your own!

@@ -7,6 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "resume": "google-chrome --headless --disable-gpu --no-pdf-header-footer --print-to-pdf=resume/CV-of-Md.-Sabbir-Hossain.pdf resume/resume.html",
     "preview": "vite preview"
   },
   "dependencies": {

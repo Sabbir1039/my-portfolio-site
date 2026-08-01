@@ -1,41 +1,34 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 /**
- * Custom hook for active section detection based on scroll position
- * @param {Function} callback - Function to call with active section id
- * @param {number} offset - Offset from top of section (default: 50)
+ * Track which section is currently in view.
+ *
+ * @param {string[]} ids - Section ids to watch. Must be a stable reference —
+ *   an inline `.map()` re-runs the effect every render and churns the observer.
+ * @returns {string} Id of the section crossing the viewport midline.
  */
-export const useScrollSpy = (callback, offset = 50) => {
+export const useScrollSpy = (ids) => {
+    const [activeId, setActiveId] = useState(ids[0]);
+
     useEffect(() => {
-        const handleScroll = () => {
-            const scrollPosition = window.scrollY;
-            const sections = document.querySelectorAll('section');
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) setActiveId(entry.target.id);
+                });
+            },
+            // Collapses the root to a 1px line at the viewport middle, so exactly
+            // one section intersects at a time and no tie-breaking is needed.
+            { rootMargin: '-50% 0px -50% 0px' }
+        );
 
-            sections.forEach((section) => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.clientHeight;
+        ids.forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) observer.observe(el);
+        });
 
-                if (
-                    scrollPosition >= sectionTop - offset &&
-                    scrollPosition < sectionTop + sectionHeight - offset
-                ) {
-                    callback(section.id);
-                }
-            });
-        };
+        return () => observer.disconnect();
+    }, [ids]);
 
-        window.addEventListener('scroll', handleScroll);
-        return () => window.removeEventListener('scroll', handleScroll);
-    }, [callback, offset]);
-};
-
-/**
- * Custom hook for handling window resize
- * @param {Function} callback - Function to call on resize
- */
-export const useWindowResize = (callback) => {
-    useEffect(() => {
-        window.addEventListener('resize', callback);
-        return () => window.removeEventListener('resize', callback);
-    }, [callback]);
+    return activeId;
 };

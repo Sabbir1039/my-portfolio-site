@@ -15,25 +15,21 @@ export const SOCIAL_LINKS = {
 export const CONTACT_INFO = {
     EMAIL: 'sabbirhossain.md@yahoo.com',
     PHONE: '+8801715772079',
-    RESUME_PATH: '/CV-of-Md.-Sabbir-Hossain.pdf',
 };
 
 // Personal information
 export const PERSONAL_INFO = {
     NAME: 'MD SABBIR HOSSAIN',
     BRAND_NAME: 'SABBIR',
-    TITLE: 'Full-Stack Developer & Python Automation Enthusiast',
+    TITLE: 'Backend Engineer — Python, FastAPI & Healthcare Systems',
     GREETING: "Hello, I'm",
-    BIO: `Welcome to my portfolio! I'm a versatile software developer with expertise in full-stack web development,
-    frontend engineering, and Python-based automation. I build responsive and dynamic web applications using React,
-    Tailwind, Django, ASP.NET Core, and FastAPI. My work includes creating personal projects,
-    data-driven automation tools, web scrapers, and machine learning applications.
-    Passionate about writing clean, efficient code and delivering impactful solutions that combine innovation with practicality.`,
-};
-
-// Navigation configuration
-export const NAV_CONFIG = {
-    SCROLL_OFFSET: 50,
+    BIO: `I'm a backend engineer from Bangladesh building HIPAA-compliant healthcare software — multi-tenant EHR
+    services, clinical workflow tooling, and the integrations that move patient data between systems that were never
+    designed to talk to each other. Day to day that means designing clean REST APIs, modeling data with Pydantic and
+    SQLAlchemy, and wiring FastAPI services to FHIR R4, OAuth2, and X12 claims pipelines. I care about strict
+    architectural layering, well-typed code, and integrations that fail loudly instead of quietly losing a record.
+    Most of my professional work is under NDA, so the projects below describe the systems and the engineering,
+    not the customers.`,
 };
 
 // Animation durations (in ms)
@@ -46,6 +42,7 @@ export const ANIMATION_DURATION = {
 // Section IDs
 export const SECTION_IDS = {
     HERO: 'hero',
+    EXPERIENCE: 'experience',
     PROJECTS: 'projects',
     SKILLS: 'skills',
     CONTACT: 'contact',
