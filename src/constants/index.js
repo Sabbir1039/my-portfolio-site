@@ -1,9 +1,3 @@
-// Theme constants
-export const THEMES = {
-    LIGHT: 'light',
-    DARK: 'dark',
-};
-
 // Social media links
 export const SOCIAL_LINKS = {
     LINKEDIN: 'https://www.linkedin.com/in/sabbir-hossain39/',
@@ -21,8 +15,10 @@ export const CONTACT_INFO = {
 export const PERSONAL_INFO = {
     NAME: 'MD SABBIR HOSSAIN',
     BRAND_NAME: 'SABBIR',
-    TITLE: 'backend engineer · python · fastapi · healthcare',
-    GREETING: "// backend engineer",
+    // Proper nouns keep their real casing — Python and FastAPI are product names,
+    // not styling. Any all-caps/lowercase look is applied in CSS, never baked in here.
+    TITLE: 'Backend Engineer · Python · FastAPI · Healthcare',
+    GREETING: '// Backend Engineer',
     // Kept deliberately short. The previous version ran to ~90 words in a narrow
     // column — a wall of text nobody reads. Detail belongs in Experience.
     BIO: `I build the integrations that move patient data between systems that were never designed
@@ -31,13 +27,6 @@ export const PERSONAL_INFO = {
     that fail loudly instead of quietly losing a record.`,
     NDA_NOTE:
         'Most of my professional work is under NDA, so the projects below describe the systems and the engineering, not the customers.',
-};
-
-// Animation durations (in ms)
-export const ANIMATION_DURATION = {
-    FAST: 200,
-    NORMAL: 300,
-    SLOW: 500,
 };
 
 // Section IDs
@@ -54,9 +43,3 @@ export const API_ENDPOINTS = {
     WEB3FORMS: 'https://api.web3forms.com/submit',
 };
 
-// UI Constants
-export const UI_CONSTANTS = {
-    MAX_CONTENT_WIDTH: 'max-w-7xl',
-    SECTION_PADDING: 'py-20',
-    MOBILE_MENU_TOP: 'top-16',
-};

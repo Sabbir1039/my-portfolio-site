@@ -50,7 +50,7 @@ const Contact = () => {
     };
 
     return (
-        <Section id={SECTION_IDS.CONTACT} eyebrow="04 / contact" title="Get in touch">
+        <Section id={SECTION_IDS.CONTACT} eyebrow="04 / Contact" title="Get in touch">
             <div className="grid md:grid-cols-2 gap-12 md:gap-16">
                 <div>
                     <p className="text-base leading-relaxed text-ink-muted mb-6">
@@ -61,7 +61,7 @@ const Contact = () => {
                     <dl className="space-y-3 font-mono text-sm">
                         <div>
                             <dt className="text-ink-subtle text-xs uppercase tracking-wider mb-0.5">
-                                email
+                                Email
                             </dt>
                             <dd>
                                 <a
@@ -74,9 +74,9 @@ const Contact = () => {
                         </div>
                         <div>
                             <dt className="text-ink-subtle text-xs uppercase tracking-wider mb-0.5">
-                                location
+                                Location
                             </dt>
-                            <dd className="text-ink-muted">Bangladesh · remote</dd>
+                            <dd className="text-ink-muted">Bangladesh · Remote</dd>
                         </div>
                     </dl>
                 </div>

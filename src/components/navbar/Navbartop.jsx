@@ -27,14 +27,14 @@ function Navbartop() {
           href={`#${SECTION_IDS.HERO}`}
           className="font-mono text-sm font-medium text-ink hover:text-accent transition-colors duration-200"
         >
-          {PERSONAL_INFO.BRAND_NAME.toLowerCase()}
+          {PERSONAL_INFO.BRAND_NAME}
         </a>
 
         {/* Desktop */}
         <div className="hidden md:flex items-center gap-7">
           {navLinks.map((link) => (
             <a key={link.id} href={`#${link.id}`} className={linkClass(link.id)}>
-              {link.label.toLowerCase()}
+              {link.label}
             </a>
           ))}
           <button
@@ -66,7 +66,7 @@ function Navbartop() {
               onClick={() => setMenuOpen(false)}
               className={cn('block', linkClass(link.id))}
             >
-              {link.label.toLowerCase()}
+              {link.label}
             </a>
           ))}
           <button
@@ -77,7 +77,7 @@ function Navbartop() {
             className="flex items-center gap-2 font-mono text-xs text-ink-muted hover:text-accent transition-colors duration-200"
           >
             {isLightTheme ? <FiMoon size={14} /> : <FiSun size={14} />}
-            {isLightTheme ? 'dark mode' : 'light mode'}
+            {isLightTheme ? 'Dark mode' : 'Light mode'}
           </button>
         </div>
       )}

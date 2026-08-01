@@ -7,8 +7,13 @@ import Contact from './components/contact/Contact';
 import Footer from './components/footer/Footer';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useTheme } from './contexts/ThemeContext';
 
 function App() {
+  // Toasts are rendered by a third-party portal, so they can't read our tokens —
+  // this is the one place the theme boolean is still needed outside the navbar.
+  const { isLightTheme } = useTheme();
+
   return (
     <div className="w-full bg-surface">
       <Navbartop />
@@ -30,7 +35,7 @@ function App() {
         pauseOnFocusLoss
         draggable
         pauseOnHover
-        theme="dark"
+        theme={isLightTheme ? 'light' : 'dark'}
       />
     </div>
   );

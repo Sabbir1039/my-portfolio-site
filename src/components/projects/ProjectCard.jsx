@@ -49,7 +49,7 @@ const ProjectCard = ({ project }) => {
                     <Badge>{category}</Badge>
                     {isPrivate && (
                         <Badge icon={FiLock} variant="muted">
-                            private
+                            Private
                         </Badge>
                     )}
                 </div>

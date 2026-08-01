@@ -4,7 +4,7 @@ import { SECTION_IDS } from '../../constants';
 import experience from '../../data/experience';
 
 const Experience = () => (
-    <Section id={SECTION_IDS.EXPERIENCE} eyebrow="01 / experience" title="Where I've worked">
+    <Section id={SECTION_IDS.EXPERIENCE} eyebrow="01 / Experience" title="Where I've worked">
         <div className="space-y-14">
             {experience.map((job) => (
                 <article key={job.id} className="border-l-2 border-line pl-6 relative">
@@ -19,7 +19,7 @@ const Experience = () => (
 
                     <div className="flex flex-wrap items-center gap-3 mb-1.5">
                         <h3 className="text-lg font-semibold tracking-tight">{job.role}</h3>
-                        {job.current && <Badge variant="accent">current</Badge>}
+                        {job.current && <Badge variant="accent">Current</Badge>}
                     </div>
 
                     <p className="font-mono text-xs text-ink-muted">

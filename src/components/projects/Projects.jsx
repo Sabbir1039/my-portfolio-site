@@ -4,7 +4,7 @@ import projects from '../../data/projects';
 import ProjectCard from './ProjectCard';
 
 const Projects = () => (
-  <Section id={SECTION_IDS.PROJECTS} eyebrow="02 / projects" title="Things I've built">
+  <Section id={SECTION_IDS.PROJECTS} eyebrow="02 / Projects" title="Things I've built">
     {/* Flex rather than grid so a partial final row centres instead of leaving an
         orphan card hanging on the left. */}
     <div className="flex flex-wrap justify-center gap-6">
